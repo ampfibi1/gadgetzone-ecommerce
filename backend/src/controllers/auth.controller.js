@@ -60,7 +60,10 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ success: false, message: 'Login failed' });
+    res.status(500).json({
+      success: false,
+      message: error.message ? `Login error: ${error.message}` : 'Login failed. Please try again.',
+    });
   }
 };
 
