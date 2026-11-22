@@ -33,11 +33,11 @@ services:
       - key: BKASH_BASE_URL
         value: https://tokenized.sandbox.bka.sh/v1.2.0-beta
       - key: FRONTEND_URL
-        value: https://gadgetzone-ui.onrender.com
+        value: https://lsq-bangladesh.onrender.com
 
   # Frontend Static Site
   - type: web
-    name: gadgetzone-ui
+    name: lsq-bangladesh
     runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
