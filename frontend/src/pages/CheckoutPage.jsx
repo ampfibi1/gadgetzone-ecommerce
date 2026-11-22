@@ -439,7 +439,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500">Merchant:</span>
-                <span className="font-semibold text-slate-800">GadgetZone Bangladesh</span>
+                <span className="font-semibold text-slate-800">LHQ BANGLADESH</span>
               </div>
             </div>
 

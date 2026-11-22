@@ -12,9 +12,9 @@ export default function NotFoundPage() {
       </p>
       <Link
         to="/"
-        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-bold shadow-md transition"
+        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-sm font-bold shadow-md transition"
       >
-        <Home className="w-4 h-4" /> Back to GadgetZone
+        <Home className="w-4 h-4" /> Back to LHQ BANGLADESH
       </Link>
     </div>
   );

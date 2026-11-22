@@ -172,17 +172,17 @@ export default function ProductDetailPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="flex-1 py-3.5 px-6 bg-blue-600 hover:bg-blue-700 active:scale-98 disabled:bg-slate-300 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 transition-all text-sm"
+                className="flex-1 py-3.5 px-6 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 active:scale-98 disabled:bg-slate-300 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/20 transition-all text-sm"
               >
                 <ShoppingCart className="w-5 h-5" />
                 {isOutOfStock ? 'Currently Unavailable' : 'Add to Cart'}
               </button>
             </div>
 
-            {/* Guarantees */}
+            {/* Guarantees & Store Info */}
             <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 text-center text-[11px] text-slate-500">
               <div className="flex flex-col items-center gap-1">
-                <Truck className="w-4 h-4 text-blue-600" />
+                <Truck className="w-4 h-4 text-cyan-600" />
                 <span>Fast BD Delivery</span>
               </div>
               <div className="flex flex-col items-center gap-1">
@@ -193,6 +193,10 @@ export default function ProductDetailPage() {
                 <RotateCcw className="w-4 h-4 text-amber-600" />
                 <span>7-Day Return</span>
               </div>
+            </div>
+
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-[11px] text-slate-600 text-center">
+              📍 <strong>LHQ BANGLADESH Store:</strong> Konapara Shopping Complex, Dhaka, Ground Floor | 📞 <strong>01348178750</strong>
             </div>
           </div>
         </div>

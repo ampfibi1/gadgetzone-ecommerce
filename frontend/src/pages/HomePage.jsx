@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Smartphone, Headphones, Watch, BatteryCharging, Zap, Shield, Truck } from 'lucide-react';
+import { ArrowRight, Smartphone, Headphones, Watch, BatteryCharging, Zap, ShieldCheck, Truck, Store, Phone, Award } from 'lucide-react';
 import api from '../api/axios';
 import ProductGrid from '../components/products/ProductGrid';
 
@@ -29,58 +29,107 @@ export default function HomePage() {
 
   const getCategoryIcon = (slug) => {
     switch (slug) {
-      case 'smartphones': return <Smartphone className="w-8 h-8" />;
-      case 'earbuds': return <Headphones className="w-8 h-8" />;
-      case 'smartwatches': return <Watch className="w-8 h-8" />;
-      case 'power-banks': return <BatteryCharging className="w-8 h-8" />;
-      default: return <Zap className="w-8 h-8" />;
+      case 'smartphones': return <Smartphone className="w-7 h-7" />;
+      case 'earbuds': return <Headphones className="w-7 h-7" />;
+      case 'smartwatches': return <Watch className="w-7 h-7" />;
+      case 'power-banks': return <BatteryCharging className="w-7 h-7" />;
+      default: return <Zap className="w-7 h-7" />;
     }
   };
 
   return (
-    <div className="space-y-16 pb-16">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white overflow-hidden py-16 sm:py-24">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
+    <div className="space-y-14 pb-16">
+      {/* Hero Showcase Section - Inspired by Gadget & Gear */}
+      <section className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden py-14 sm:py-20 border-b border-slate-800">
+        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(#06b6d4_1px,transparent_1px)] [background-size:20px_20px]" />
+        
+        {/* Glowing Background Accent */}
+        <div className="absolute -top-24 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-400/30 text-xs font-semibold uppercase tracking-wider mb-6">
-              <Zap className="w-3.5 h-3.5" /> Next-Gen Technology Store
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-7 space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/80 text-cyan-400 border border-cyan-800/60 text-xs font-bold tracking-wide">
+                <Award className="w-3.5 h-3.5" /> LHQ BANGLADESH • Official Gadget Retailer
+              </div>
+
+              {/* Main Heading */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                Authentic Gadgets, <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400">
+                  Unmatched Experience.
+                </span>
+              </h1>
+
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl">
+                Discover the latest flagships, true wireless ANC earbuds, smartwatches, and high-wattage power banks with official brand warranty. Visit our store or enjoy fast nationwide delivery.
+              </p>
+
+              {/* Action Buttons (NO Track Order) */}
+              <div className="flex flex-wrap items-center gap-3.5 pt-2">
+                <Link
+                  to="/products"
+                  className="px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white font-bold rounded-xl flex items-center gap-2 shadow-lg shadow-cyan-500/20 active:scale-98 transition text-sm"
+                >
+                  Explore All Gadgets
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <a
+                  href="tel:01348178750"
+                  className="px-5 py-3.5 bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/80 font-bold rounded-xl flex items-center gap-2 transition text-sm"
+                >
+                  <Phone className="w-4 h-4 text-cyan-400" />
+                  Call: 01348178750
+                </a>
+              </div>
+
+              {/* Mini Highlights */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-slate-800/80 text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>100% Genuine Warranty</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Truck className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>Fast BD Delivery</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Store className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span>Konapara Outlet</span>
+                </div>
+              </div>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
-              Upgrade Your Life With Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">Gadgets</span>
-            </h1>
-            <p className="text-slate-300 text-base sm:text-lg mb-8 leading-relaxed">
-              Explore authentic flagships, noise-cancelling earbuds, smartwatches, and fast-charging accessories with official warranty and instant bKash checkout across Bangladesh.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                to="/products"
-                className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl flex items-center gap-2 shadow-lg hover:shadow-blue-500/25 transition-all text-sm"
-              >
-                Explore All Gadgets
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/track-order"
-                className="px-6 py-3.5 bg-slate-800/80 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold rounded-xl transition text-sm"
-              >
-                Track Your Order
-              </Link>
+
+            {/* Right Hero Graphic Showcase */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative w-full max-w-sm sm:max-w-md p-6 bg-slate-900/60 rounded-3xl border border-slate-800 shadow-2xl backdrop-blur-xs text-center space-y-4">
+                <div className="w-24 h-24 mx-auto rounded-2xl overflow-hidden shadow-xl ring-2 ring-cyan-500/40 p-1 bg-slate-950">
+                  <img src="/logo.jpg" alt="LHQ Logo" className="w-full h-full object-cover rounded-xl" />
+                </div>
+                <h3 className="text-xl font-black text-white">LHQ BANGLADESH</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Your trusted electronics destination at Konapara Shopping Complex, Dhaka, Ground Floor.
+                </p>
+                <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800 text-xs text-cyan-300 font-semibold">
+                  📞 Hotline: 01348178750
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Categories Grid */}
+      {/* Featured Categories - Clean Gadget & Gear Tile Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Shop by Category</h2>
-            <p className="text-sm text-slate-500 mt-1">Discover high-end electronics tailored to your needs</p>
+            <span className="text-[11px] font-bold text-cyan-600 uppercase tracking-widest block mb-0.5">Explore by Category</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Popular Departments</h2>
           </div>
-          <Link to="/products" className="text-blue-600 hover:text-blue-700 font-bold text-sm flex items-center gap-1">
-            View All <ArrowRight className="w-4 h-4" />
+          <Link to="/products" className="text-cyan-700 hover:text-cyan-800 font-bold text-xs sm:text-sm flex items-center gap-1">
+            View All Categories <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
@@ -89,12 +138,12 @@ export default function HomePage() {
             <Link
               key={cat.id}
               to={`/products?category=${cat.slug}`}
-              className="group bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500/50 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center"
+              className="group bg-white p-6 rounded-2xl border border-slate-200/90 hover:border-cyan-500 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center shadow-xs"
             >
-              <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300 flex items-center justify-center mb-4">
+              <div className="w-16 h-16 rounded-2xl bg-cyan-50 text-cyan-600 group-hover:bg-gradient-to-tr group-hover:from-cyan-500 group-hover:to-blue-600 group-hover:text-white transition-all duration-300 flex items-center justify-center mb-4 shadow-inner">
                 {getCategoryIcon(cat.slug)}
               </div>
-              <h3 className="font-bold text-slate-900 text-base mb-1 group-hover:text-blue-600 transition">
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base mb-1 group-hover:text-cyan-600 transition">
                 {cat.name}
               </h3>
               <p className="text-xs text-slate-400 line-clamp-1">{cat.description}</p>
@@ -103,37 +152,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
+      {/* Featured Gadgets Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-between mb-8 pb-3 border-b border-slate-200">
           <div>
-            <span className="text-xs font-bold text-blue-600 uppercase tracking-widest">Handpicked Deals</span>
-            <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-1">Featured Gadgets</h2>
+            <span className="text-[11px] font-bold text-cyan-600 uppercase tracking-widest block mb-0.5">Official Warranty Products</span>
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Featured Gadgets</h2>
           </div>
-          <Link to="/products" className="text-blue-600 hover:text-blue-700 font-bold text-sm flex items-center gap-1">
-            See All <ArrowRight className="w-4 h-4" />
+          <Link to="/products" className="text-cyan-700 hover:text-cyan-800 font-bold text-xs sm:text-sm flex items-center gap-1">
+            See All Products <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
         <ProductGrid products={featuredProducts} loading={loading} />
       </section>
 
-      {/* Value Proposition Banner */}
+      {/* Store Visit & bKash Banner */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-slate-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
-          <div className="max-w-xl relative z-10">
-            <h3 className="text-3xl font-black mb-4 tracking-tight">
-              Ready for Guest Checkout with Instant bKash?
+        <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-cyan-950 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-2xl border border-slate-800">
+          <div className="max-w-2xl relative z-10 space-y-4">
+            <span className="inline-block px-3 py-1 rounded-md bg-cyan-500/20 text-cyan-300 text-[11px] font-extrabold uppercase tracking-wider">
+              Visit Our Outlet in Dhaka
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
+              Konapara Shopping Complex, Dhaka, Ground Floor
             </h3>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">
-              No long registration required. Browse your desired gadget, add to cart, and checkout seamlessly as a guest or with your customer account.
+            <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+              Prefer testing before purchasing? Visit the <strong>LHQ BANGLADESH</strong> retail shop or order online with instant bKash checkout and Cash on Delivery. For inquiries, call <strong>01348178750</strong> or email <strong>lhqbangladesh@gmail.com</strong>.
             </p>
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-950 font-bold rounded-xl text-sm hover:bg-slate-100 transition shadow-sm"
-            >
-              Start Shopping Now <ArrowRight className="w-4 h-4" />
-            </Link>
+            <div className="pt-2 flex flex-wrap gap-3">
+              <Link
+                to="/products"
+                className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white font-bold rounded-xl text-xs sm:text-sm transition shadow-md inline-flex items-center gap-2"
+              >
+                Shop Now <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="tel:01348178750"
+                className="px-5 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl text-xs sm:text-sm transition border border-white/20 inline-flex items-center gap-2"
+              >
+                <Phone className="w-3.5 h-3.5 text-cyan-400" /> 01348178750
+              </a>
+            </div>
           </div>
         </div>
       </section>

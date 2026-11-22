@@ -67,7 +67,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
-    message: 'GadgetZone API is healthy and operational',
+    message: 'LHQ BANGLADESH API is healthy and operational',
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || 'development',
   });
@@ -105,7 +105,7 @@ app.use((err, req, res, next) => {
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
-    console.log(`🚀 GadgetZone Server running on port ${PORT}`);
+    console.log(`🚀 LHQ BANGLADESH Server running on port ${PORT}`);
     console.log(`📦 Health check: http://localhost:${PORT}/api/health`);
   });
 }

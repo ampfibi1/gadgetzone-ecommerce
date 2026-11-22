@@ -20,11 +20,11 @@ async function main() {
       role: 'ADMIN',
     },
     create: {
-      name: 'GadgetZone Admin',
+      name: 'LHQ BANGLADESH Admin',
       email: adminEmail,
       password: hashedAdminPassword,
-      phone: '+8801700000000',
-      address: 'Dhaka, Bangladesh',
+      phone: '01348178750',
+      address: 'Konapara Shopping Complex, Dhaka, Ground Floor',
       role: 'ADMIN',
     },
   });

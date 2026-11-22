@@ -40,7 +40,7 @@ export default function AdminDashboardPage() {
             <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-purple-100 text-purple-700">
               Admin Portal
             </span>
-            <span className="text-xs text-slate-400">GadgetZone Platform Operations</span>
+            <span className="text-xs text-slate-400">LHQ BANGLADESH Platform Operations</span>
           </div>
           <h1 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Management Overview</h1>
         </div>

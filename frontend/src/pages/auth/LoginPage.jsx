@@ -38,10 +38,10 @@ export default function LoginPage() {
     <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-xs">
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center mx-auto mb-3 font-black text-xl shadow-md">
-            GZ
+          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl overflow-hidden shadow-md ring-2 ring-cyan-500/30">
+            <img src="/logo.jpg" alt="LHQ Logo" className="w-full h-full object-cover" />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Sign In to GadgetZone</h1>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Sign In to LHQ BANGLADESH</h1>
           <p className="text-xs text-slate-500 mt-1">
             Access your orders, saved addresses, and profile
           </p>

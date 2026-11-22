@@ -1,4 +1,4 @@
-# 🚀 GadgetZone — MVP Gadget E-Commerce Platform (Bangladesh)
+# 🚀 LHQ BANGLADESH — Premier Gadget E-Commerce Platform
 
 [![Node.js](https://img.shields.io/badge/Node.js-v20+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-19-blue.svg)](https://react.dev/)
@@ -7,7 +7,7 @@
 [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38bdf8.svg)](https://tailwindcss.com/)
 [![Render](https://img.shields.io/badge/Deploy-Render-black.svg)](https://render.com/)
 
-GadgetZone is a modern, production-quality MVP gadget e-commerce web application specifically built for the **Bangladesh** electronics market. It features prices formatted in **Bangladeshi Taka (BDT ৳)**, genuine warranty badges, express delivery nationwide, an extensible payment gateway architecture featuring **bKash (Sandbox/Live Tokenized Checkout)** and **Cash on Delivery (COD)**, and strict **Role-Based Access Control (RBAC)** across three distinct user roles.
+**LHQ BANGLADESH** is a modern, production-quality gadget e-commerce web application inspired by leading electronics retail platforms like `gadgetandgear.com`. It features prices in **Bangladeshi Taka (BDT ৳)**, official warranty badges, express delivery nationwide, a retail presence at **Konapara Shopping Complex, Dhaka, Ground Floor**, an extensible payment gateway architecture featuring **bKash (Tokenized Checkout & Sandbox)** and **Cash on Delivery (COD)**, and strict **Role-Based Access Control (RBAC)** across three distinct user roles.
 
 ---
 
@@ -41,7 +41,6 @@ The system strictly enforces permissions on the backend API layer using JWT auth
 | View Product Details & Stock Status | ✅ | ✅ | ✅ |
 | Add Items to Cart | ✅ | ✅ | ✅ |
 | **Guest Checkout (Without Registering)** | ✅ | ✅ | ✅ |
-| Track Any Order by Order Number | ✅ | ✅ | ✅ |
 | User Registration & Profile Management | ❌ | ✅ | ✅ |
 | Persistent Order History & Order Details | ❌ | ✅ (Own orders only) | ✅ (All platform orders) |
 | Admin Operations Dashboard | ❌ | ❌ | ✅ |
@@ -58,11 +57,12 @@ Guests are **never** forced to create an account or log in to complete a purchas
 
 ## 2. Core Features
 
-- **Store Branding:** GadgetZone Bangladesh — "Your Ultimate Gadget Destination".
+- **Store Branding:** LHQ BANGLADESH — "Authentic Gadget Destination".
+- **Physical Location:** Konapara Shopping Complex, Dhaka, Ground Floor.
+- **Contact Channels:** Phone: 01348178750 | Email: lhqbangladesh@gmail.com.
 - **Product Categories:** Smartphones, Earbuds, Smartwatches, Power Banks.
 - **BDT Currency:** Formatted as `৳49,999` with Bangladesh localized number formatting.
 - **Guest Checkout Flow:** Product → Cart → Checkout Details → bKash / COD Selection → Instant Order Confirmation with live Order Reference (`GZ-YYYYMMDD-XXXXXX`).
-- **Live Order Tracking:** Public order tracking by reference number with visual stepper: `PENDING → CONFIRMED → PROCESSING → SHIPPED → DELIVERED`.
 - **Customer Portal:** Dedicated dashboard, profile address manager, and personal order history.
 - **Admin Command Center:**
   - Revenue, order volume, catalog size, and user count metrics.
