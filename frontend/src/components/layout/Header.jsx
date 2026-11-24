@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, User, Shield, Menu, X, Search, LogOut, Package, Phone, MapPin, Mail, ChevronDown } from 'lucide-react';
+import {
+  ChevronDown,
+  LogOut,
+  MapPin,
+  Menu,
+  Package,
+  Phone,
+  Search,
+  Shield,
+  ShoppingCart,
+  User,
+  X,
+} from 'lucide-react';
 import { useAuthStore } from '../../stores/authStore';
 import { useCartStore } from '../../stores/cartStore';
+
+const categoryLinks = [
+  { name: 'All gadgets', path: '/products' },
+  { name: 'Smartphones', path: '/products?category=smartphones' },
+  { name: 'Earbuds', path: '/products?category=earbuds' },
+  { name: 'Smartwatches', path: '/products?category=smartwatches' },
+  { name: 'Power banks', path: '/products?category=power-banks' },
+];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,8 +34,8 @@ export default function Header() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = (event) => {
+    event.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/products?search=${encodeURIComponent(searchQuery.trim())}`);
       setMobileMenuOpen(false);
@@ -25,223 +45,203 @@ export default function Header() {
   const handleLogout = async () => {
     await logout();
     setUserDropdownOpen(false);
+    setMobileMenuOpen(false);
     navigate('/');
   };
 
-  const categoryLinks = [
-    { name: 'All gadgets', path: '/products' },
-    { name: 'Smartphones', path: '/products?category=smartphones' },
-    { name: 'Earbuds', path: '/products?category=earbuds' },
-    { name: 'Smartwatches', path: '/products?category=smartwatches' },
-    { name: 'Power banks', path: '/products?category=power-banks' },
-  ];
-
   return (
-    <header className="sticky top-0 z-40 bg-slate-950 text-white border-b border-slate-800">
-      {/* Top Utility & Contact Bar */}
-      <div className="bg-slate-900/90 border-b border-slate-800 text-xs py-2 px-4 text-slate-300">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs">
-            <a href="tel:01348178750" className="inline-flex items-center gap-1.5 text-slate-300 hover:text-sky-400 transition-colors font-medium">
-              <Phone className="w-3.5 h-3.5 text-sky-400" />
+    <header className="sticky top-0 z-40 border-b border-line bg-paper">
+      {/* Store strip */}
+      <div className="bg-night text-night-muted">
+        <div className="ui-container flex h-8 items-center justify-between gap-4 font-mono text-[10px]">
+          <div className="flex min-w-0 items-center gap-4">
+            <a
+              href="tel:01348178750"
+              className="inline-flex items-center gap-1.5 transition-colors hover:text-night-text"
+            >
+              <Phone className="h-3 w-3" />
               <span>01348178750</span>
             </a>
-            <span className="hidden md:inline text-slate-700">|</span>
-            <div className="hidden md:flex items-center gap-1.5 text-slate-400">
-              <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
-              <span>Konapara Shopping Complex, Dhaka, Ground Floor</span>
-            </div>
-            <span className="hidden lg:inline text-slate-700">|</span>
-            <a href="mailto:lhqbangladesh@gmail.com" className="hidden lg:flex items-center gap-1.5 text-slate-400 hover:text-sky-400 transition-colors">
-              <Mail className="w-3.5 h-3.5 text-slate-500" />
-              <span>lhqbangladesh@gmail.com</span>
-            </a>
-          </div>
-
-          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-300">
-            <span className="inline-flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/60 px-2.5 py-0.5 rounded text-[11px] text-slate-300">
-              Free delivery over ৳5,000 • bKash & Cash on delivery
+            <span className="hidden text-night-line md:inline">/</span>
+            <span className="hidden min-w-0 items-center gap-1.5 md:flex">
+              <MapPin className="h-3 w-3 shrink-0" />
+              <span className="truncate">Konapara Shopping Complex, Dhaka</span>
             </span>
+          </div>
+          <div className="flex shrink-0 items-center gap-4">
+            <span className="hidden lg:inline">Free delivery over ৳5,000</span>
+            <span className="hidden text-night-text sm:inline">bKash & cash on delivery</span>
           </div>
         </div>
       </div>
 
-      {/* Main Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-2 sm:gap-6">
-          {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
+      {/* Main header */}
+      <div className="ui-container">
+        <div className="flex h-[72px] items-center justify-between gap-3 sm:gap-6">
+          <Link to="/" className="flex shrink-0 items-center gap-2.5">
             <img
               src="/logo.jpg"
               alt="LHQ Bangladesh"
-              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-700"
+              className="h-10 w-10 rounded-md border border-line object-cover"
             />
-            <div className="flex flex-col">
-              <span className="font-bold text-base sm:text-xl tracking-tight text-white leading-none whitespace-nowrap">
-                LHQ <span className="text-sky-400">Bangladesh</span>
+            <span className="flex flex-col">
+              <span className="whitespace-nowrap text-[17px] font-semibold leading-none tracking-[-0.01em] text-ink">
+                LHQ Bangladesh
               </span>
-              <span className="hidden sm:block text-[11px] text-slate-400 font-medium mt-1">
-                Authentic retail & online store
+              <span className="mt-1 hidden text-[10px] font-normal text-muted sm:block">
+                Official retailer · Dhaka
               </span>
-            </div>
+            </span>
           </Link>
 
-          {/* Search Bar */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-4">
+          <form onSubmit={handleSearch} className="hidden max-w-[380px] flex-1 md:flex" role="search">
             <div className="relative w-full">
               <input
                 type="text"
-                placeholder="Search smartphones, earbuds, smartwatches..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 text-white placeholder-slate-400 text-sm rounded-lg pl-3.5 pr-10 py-2 border border-slate-700 focus:outline-hidden focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search gadgets"
+                aria-label="Search gadgets"
+                className="ui-input pr-10"
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded flex items-center justify-center transition-colors"
+                className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted transition-colors hover:bg-raised hover:text-ink"
                 aria-label="Search"
               >
-                <Search className="w-4 h-4" />
+                <Search className="h-4 w-4" />
               </button>
             </div>
           </form>
 
-          {/* User & Cart Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
-            {/* Quick Hotline Tablet/Desktop */}
-            <a
-              href="tel:01348178750"
-              className="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-lg border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-colors text-xs"
-            >
-              <Phone className="w-3.5 h-3.5 text-sky-400" />
-              <div className="text-left">
-                <span className="text-[10px] text-slate-400 block">Support hotline</span>
-                <span className="font-semibold text-white">01348178750</span>
-              </div>
-            </a>
-
-            {/* Shopping Cart Button */}
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               to="/cart"
-              className="relative p-2 sm:p-2.5 text-slate-200 hover:text-white rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center gap-2"
-              aria-label="Shopping Cart"
+              className="relative flex h-10 items-center gap-2 rounded-lg border border-line bg-surface px-2.5 text-ink transition-colors hover:bg-raised sm:px-3"
+              aria-label="Shopping cart"
             >
-              <ShoppingCart className="w-5 h-5 text-sky-400" />
-              <span className="hidden md:inline text-xs font-semibold text-slate-200">Cart</span>
+              <ShoppingCart className="h-[18px] w-[18px]" />
+              <span className="hidden text-xs font-medium md:inline">Cart</span>
               {itemCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-sky-600 text-white text-[11px] font-semibold h-5 min-w-5 px-1 rounded-full flex items-center justify-center tabular-nums">
-                  {itemCount}
-                </span>
+                <span className="font-mono text-[10px] text-ember tabular-nums">({itemCount})</span>
               )}
             </Link>
 
-            {/* Authentication Dropdown / Login */}
             {isAuthenticated ? (
               <div className="relative">
                 <button
-                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 transition-colors"
+                  type="button"
+                  onClick={() => setUserDropdownOpen((open) => !open)}
+                  className="flex h-10 items-center gap-2 rounded-lg border border-line bg-surface px-2 text-ink transition-colors hover:bg-raised sm:px-2.5"
+                  aria-expanded={userDropdownOpen}
+                  aria-haspopup="menu"
                 >
-                  <div className="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-semibold text-slate-200">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-raised text-[11px] font-medium text-ink-soft">
                     {user?.name ? user.name[0].toUpperCase() : 'U'}
-                  </div>
-                  <span className="hidden sm:inline-block text-xs font-medium truncate max-w-[120px]">
+                  </span>
+                  <span className="hidden max-w-[110px] truncate text-xs font-medium sm:inline">
                     {user?.name}
                   </span>
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:inline" />
+                  <ChevronDown className="hidden h-3.5 w-3.5 text-muted sm:inline" />
                 </button>
 
-                {/* Dropdown Menu */}
                 {userDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-slate-900 text-slate-200 rounded-lg shadow-xl border border-slate-800 py-1.5 z-50">
-                    <div className="px-3 py-2 border-b border-slate-800">
-                      <p className="text-xs font-semibold text-white truncate">{user?.name}</p>
-                      <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
-                      <span className="inline-block mt-1 px-1.5 py-0.5 text-[10px] font-medium rounded bg-slate-800 text-sky-400 border border-slate-700">
-                        {user?.role}
-                      </span>
+                  <div
+                    className="ui-shadow absolute right-0 z-50 mt-2 w-60 rounded-lg border border-line bg-surface p-1.5"
+                    role="menu"
+                  >
+                    <div className="border-b border-line px-3 py-2.5">
+                      <p className="truncate text-xs font-medium text-ink">{user?.name}</p>
+                      <p className="mt-0.5 truncate text-[11px] text-muted">{user?.email}</p>
+                      <span className="ui-tag mt-2">{user?.role}</span>
                     </div>
 
                     {isAdmin && (
                       <Link
                         to="/admin"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 text-xs text-sky-300 hover:bg-slate-800 font-medium transition-colors"
+                        className="flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-ink transition-colors hover:bg-raised"
+                        role="menuitem"
                       >
-                        <Shield className="w-4 h-4 text-sky-400" /> Admin dashboard
+                        <Shield className="h-4 w-4 text-muted" /> Admin dashboard
                       </Link>
                     )}
 
                     <Link
                       to="/account"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
+                      className="flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-ink transition-colors hover:bg-raised"
+                      role="menuitem"
                     >
-                      <User className="w-4 h-4 text-slate-400" /> Account details
+                      <User className="h-4 w-4 text-muted" /> Account details
                     </Link>
 
                     <Link
                       to="/account/orders"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
+                      className="flex h-9 items-center gap-2 rounded-md px-2.5 text-xs text-ink transition-colors hover:bg-raised"
+                      role="menuitem"
                     >
-                      <Package className="w-4 h-4 text-slate-400" /> Order history
+                      <Package className="h-4 w-4 text-muted" /> Order history
                     </Link>
 
-                    <div className="border-t border-slate-800 my-1" />
+                    <div className="my-1 border-t border-line" />
 
                     <button
+                      type="button"
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-950/20 text-left transition-colors"
+                      className="flex h-9 w-full items-center gap-2 rounded-md px-2.5 text-left text-xs text-danger transition-colors hover:bg-raised"
+                      role="menuitem"
                     >
-                      <LogOut className="w-4 h-4" /> Sign out
+                      <LogOut className="h-4 w-4" /> Sign out
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5">
                 <Link
                   to="/login"
-                  className="px-2 sm:px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors whitespace-nowrap"
+                  className="hidden h-9 items-center rounded-lg px-2.5 text-xs font-medium text-ink-soft transition-colors hover:bg-raised sm:inline-flex"
                 >
                   Sign in
                 </Link>
                 <Link
                   to="/register"
-                  className="hidden sm:inline-flex px-3.5 py-1.5 text-xs font-medium bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-colors"
+                  className="ui-btn ui-btn-primary ui-btn-sm hidden sm:inline-flex"
                 >
                   Register
                 </Link>
               </div>
             )}
 
-            {/* Mobile Hamburger Toggle */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-1.5 sm:p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
+              type="button"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-ink transition-colors hover:bg-raised lg:hidden"
               aria-label="Toggle menu"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Sub-Navigation Categories Bar */}
-      <nav className="hidden lg:block bg-slate-900/60 border-t border-slate-800/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-1 text-xs font-medium">
+      {/* Category navigation */}
+      <nav className="hidden border-t border-line lg:block" aria-label="Categories">
+        <div className="ui-container flex h-11 items-center justify-between">
+          <div className="flex items-center gap-0.5">
             {categoryLinks.map((item) => {
               const isActive = location.pathname + location.search === item.path;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`px-3.5 py-2.5 transition-colors border-b-2 ${
+                  className={`border-b-2 px-3 py-2 text-xs font-medium transition-colors ${
                     isActive
-                      ? 'border-sky-400 text-sky-300 font-semibold'
-                      : 'border-transparent text-slate-300 hover:text-white hover:border-slate-600'
+                      ? 'border-ember text-ink'
+                      : 'border-transparent text-muted hover:text-ink'
                   }`}
                 >
                   {item.name}
@@ -250,70 +250,106 @@ export default function Header() {
             })}
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-sky-400" /> Konapara Shopping Complex, Dhaka
-            </span>
-          </div>
+          <span className="font-mono text-[10px] text-muted">
+            Konapara Shopping Complex · Ground Floor
+          </span>
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden py-4 px-4 border-t border-slate-800 bg-slate-950 space-y-4">
-          {/* Mobile Search */}
-          <form onSubmit={handleSearch}>
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search gadgets..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 text-white placeholder-slate-400 text-xs rounded-lg pl-3 pr-9 py-2 border border-slate-800 focus:outline-hidden focus:border-sky-500"
-              />
-              <button
-                type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-slate-400"
-              >
-                <Search className="w-4 h-4" />
-              </button>
+        <div className="border-t border-line bg-paper lg:hidden">
+          <div className="ui-container space-y-4 py-4">
+            <form onSubmit={handleSearch} role="search">
+              <div className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder="Search gadgets"
+                  aria-label="Search gadgets"
+                  className="ui-input pr-10"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted hover:bg-raised hover:text-ink"
+                  aria-label="Search"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
+              </div>
+            </form>
+
+            <div className="space-y-0.5">
+              <p className="ui-kicker mb-2">Categories</p>
+              {categoryLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block rounded-md px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:bg-raised hover:text-ink"
+                >
+                  {item.name}
+                </Link>
+              ))}
             </div>
-          </form>
 
-          {/* Mobile Category Links */}
-          <div className="space-y-1">
-            <p className="text-[11px] font-semibold text-slate-500 px-3 mb-1">Categories</p>
-            {categoryLinks.map((cat) => (
-              <Link
-                key={cat.name}
-                to={cat.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-900 rounded-lg"
-              >
-                {cat.name}
-              </Link>
-            ))}
+            <div className="space-y-1 border-t border-line pt-3">
+              {isAuthenticated ? (
+                <>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-md px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-raised"
+                    >
+                      <Shield className="h-4 w-4 text-muted" /> Admin dashboard
+                    </Link>
+                  )}
+                  <Link
+                    to="/account"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 rounded-md px-3 py-2 text-[13px] text-ink-soft transition-colors hover:bg-raised"
+                  >
+                    <User className="h-4 w-4 text-muted" /> My account
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-[13px] text-danger transition-colors hover:bg-raised"
+                  >
+                    <LogOut className="h-4 w-4" /> Sign out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block rounded-md px-3 py-2 text-[13px] font-medium text-ink transition-colors hover:bg-raised"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="ui-btn ui-btn-primary mt-2 w-full"
+                  >
+                    Create account
+                  </Link>
+                </>
+              )}
+            </div>
 
-            {isAdmin && (
-              <Link
-                to="/admin"
-                onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-xs font-medium text-sky-300 bg-slate-900 border border-slate-800 rounded-lg mt-2"
-              >
-                <Shield className="w-3.5 h-3.5 inline mr-2 text-sky-400" /> Admin dashboard
-              </Link>
-            )}
-          </div>
-
-          {/* Mobile Store Info */}
-          <div className="pt-3 border-t border-slate-900 text-xs text-slate-400 space-y-1.5 px-3">
-            <p className="flex items-center gap-2 text-slate-300 font-medium">
-              <Phone className="w-3.5 h-3.5 text-sky-400" /> 01348178750
-            </p>
-            <p className="flex items-start gap-2 text-slate-400 text-[11px]">
-              <MapPin className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
-              Konapara Shopping Complex, Dhaka, Ground Floor
-            </p>
+            <div className="space-y-1.5 border-t border-line pt-3 font-mono text-[10px] text-muted">
+              <p className="flex items-center gap-2 text-ink-soft">
+                <Phone className="h-3 w-3" /> 01348178750
+              </p>
+              <p className="flex items-start gap-2">
+                <MapPin className="mt-0.5 h-3 w-3 shrink-0" />
+                Konapara Shopping Complex, Dhaka, Ground Floor
+              </p>
+            </div>
           </div>
         </div>
       )}

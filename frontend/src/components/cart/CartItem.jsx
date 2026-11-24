@@ -7,74 +7,75 @@ export default function CartItem({ item }) {
   const { updateQuantity, removeItem } = useCartStore();
   const { product, quantity } = item;
 
-  const primaryImage = product.images?.[0]?.url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80';
+  const primaryImage =
+    product.images?.[0]?.url ||
+    'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80';
   const lineTotal = product.price * quantity;
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-4 border-b border-slate-200">
-      <div className="flex items-center gap-4 w-full sm:w-auto">
+    <div className="flex flex-col gap-4 border-b border-line py-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex w-full items-center gap-4 sm:w-auto">
         <Link to={`/products/${product.slug}`} className="shrink-0">
           <img
             src={primaryImage}
             alt={product.name}
-            className="w-16 h-16 rounded-lg object-contain bg-slate-50 border border-slate-200 p-1"
+            className="h-16 w-16 rounded-md border border-line bg-raised object-contain p-1.5"
           />
         </Link>
-        <div className="flex-1 min-w-0">
+        <div className="min-w-0 flex-1">
           <Link
             to={`/products/${product.slug}`}
-            className="font-medium text-slate-900 hover:text-sky-600 transition-colors text-xs sm:text-sm line-clamp-1"
+            className="line-clamp-1 text-[13px] font-medium text-ink transition-colors hover:text-ember"
           >
             {product.name}
           </Link>
-          <p className="text-xs text-slate-500 mt-0.5">
-            Unit price: <span className="font-medium text-slate-700 tabular-nums">৳{product.price.toLocaleString('en-BD')}</span>
+          <p className="mt-1 font-mono text-[10px] text-muted">
+            ৳{product.price.toLocaleString('en-BD')} each
           </p>
           {product.stock <= 5 && product.stock > 0 && (
-            <p className="text-[11px] text-amber-700 font-medium mt-1">
-              Only {product.stock} left in stock
+            <p className="mt-1 font-mono text-[10px] text-ember">
+              {product.stock} left
             </p>
           )}
         </div>
       </div>
 
-      <div className="flex items-center justify-between w-full sm:w-auto gap-5">
-        {/* Quantity Controls */}
-        <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-white">
+      <div className="flex w-full items-center justify-between gap-4 sm:w-auto">
+        <div className="flex items-center overflow-hidden rounded-lg border border-line bg-surface">
           <button
+            type="button"
             onClick={() => updateQuantity(product.id, quantity - 1)}
-            className="p-1.5 text-slate-600 hover:bg-slate-50 transition-colors"
+            className="flex h-8 w-8 items-center justify-center text-ink-soft transition-colors hover:bg-raised"
             aria-label="Decrease quantity"
           >
-            <Minus className="w-3.5 h-3.5" />
+            <Minus className="h-3.5 w-3.5" />
           </button>
-          <span className="w-8 text-center text-xs font-semibold text-slate-800 tabular-nums">
+          <span className="w-8 text-center font-mono text-[12px] tabular-nums text-ink">
             {quantity}
           </span>
           <button
+            type="button"
             onClick={() => updateQuantity(product.id, quantity + 1)}
             disabled={product.stock && quantity >= product.stock}
-            className="p-1.5 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+            className="flex h-8 w-8 items-center justify-center text-ink-soft transition-colors hover:bg-raised disabled:opacity-30"
             aria-label="Increase quantity"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="h-3.5 w-3.5" />
           </button>
         </div>
 
-        {/* Total Price */}
-        <div className="text-right min-w-[80px]">
-          <span className="font-semibold text-slate-900 text-xs sm:text-sm tabular-nums">
-            ৳{lineTotal.toLocaleString('en-BD')}
-          </span>
-        </div>
+        <span className="min-w-[72px] text-right font-mono text-[13px] tabular-nums text-ink">
+          ৳{lineTotal.toLocaleString('en-BD')}
+        </span>
 
-        {/* Remove Button */}
         <button
+          type="button"
           onClick={() => removeItem(product.id)}
-          className="p-1.5 text-slate-400 hover:text-rose-600 rounded-md hover:bg-rose-50 transition-colors"
+          className="flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-raised hover:text-danger"
           title="Remove item"
+          aria-label={`Remove ${product.name}`}
         >
-          <Trash2 className="w-4 h-4" />
+          <Trash2 className="h-4 w-4" />
         </button>
       </div>
     </div>

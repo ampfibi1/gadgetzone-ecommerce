@@ -76,22 +76,22 @@ export default function AdminCategoriesPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="ui-container py-8">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Categories</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Organize gadgets into smartphones, earbuds, smartwatches, power banks</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">Categories</h1>
+          <p className="text-xs text-stone-500 mt-0.5">Organize gadgets into smartphones, earbuds, smartwatches, power banks</p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors"
+          className="px-3.5 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors"
         >
           <Plus className="w-3.5 h-3.5" /> Create category
         </button>
@@ -102,30 +102,30 @@ export default function AdminCategoriesPage() {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((cat) => (
-            <div key={cat.id} className="bg-white rounded-xl border border-slate-200/90 p-5 flex flex-col justify-between shadow-xs">
+            <div key={cat.id} className="bg-[var(--color-surface)] rounded-xl border border-stone-200/90 p-5 flex flex-col justify-between shadow-xs">
               <div>
-                <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center font-bold mb-3">
-                  <FolderPlus className="w-5 h-5 text-sky-600" />
+                <div className="w-10 h-10 rounded-lg bg-stone-100 text-stone-700 flex items-center justify-center font-bold mb-3">
+                  <FolderPlus className="w-5 h-5 text-[var(--color-ember)]" />
                 </div>
-                <h3 className="font-semibold text-slate-900 text-sm mb-1">{cat.name}</h3>
-                <p className="text-xs text-slate-500 mb-2.5">{cat.description || 'No description provided.'}</p>
-                <span className="text-[11px] font-mono text-slate-400 block mb-3">Slug: {cat.slug}</span>
+                <h3 className="font-semibold text-stone-900 text-sm mb-1">{cat.name}</h3>
+                <p className="text-xs text-stone-500 mb-2.5">{cat.description || 'No description provided.'}</p>
+                <span className="text-[11px] font-mono text-stone-400 block mb-3">Slug: {cat.slug}</span>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs font-medium text-slate-700 tabular-nums">
+              <div className="pt-3 border-t border-stone-100 flex items-center justify-between">
+                <span className="text-xs font-medium text-stone-700 tabular-nums">
                   {cat._count?.products || 0} products
                 </span>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => openEditModal(cat)}
-                    className="p-1.5 text-slate-600 hover:text-blue-600 rounded-lg hover:bg-slate-50"
+                    className="p-1.5 text-stone-600 hover:text-[var(--color-ember)] rounded-lg hover:bg-stone-50"
                   >
                     <Edit className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(cat.id, cat.name)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50"
+                    className="p-1.5 text-stone-400 hover:text-red-600 rounded-lg hover:bg-red-50"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -139,14 +139,14 @@ export default function AdminCategoriesPage() {
       {/* Category Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl animate-in fade-in">
-            <h3 className="text-lg font-black text-slate-900 mb-4">
+          <div className="bg-[var(--color-surface)] rounded-xl max-w-md w-full p-6 sm:p-8 shadow-lg animate-in fade-in">
+            <h3 className="text-lg font-semibold text-stone-900 mb-4">
               {editingCategory ? 'Edit Category' : 'Create New Category'}
             </h3>
 
             <form onSubmit={handleSave} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                   Category Name
                 </label>
                 <input
@@ -155,12 +155,12 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setName(e.target.value)}
                   required
                   placeholder="e.g. Headphones"
-                  className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-hidden"
+                  className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                   Description
                 </label>
                 <textarea
@@ -168,12 +168,12 @@ export default function AdminCategoriesPage() {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={2}
                   placeholder="Short description..."
-                  className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-hidden"
+                  className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
+                <label className="block text-xs font-bold text-stone-700 uppercase mb-1">
                   Banner Image URL (Optional)
                 </label>
                 <input
@@ -181,7 +181,7 @@ export default function AdminCategoriesPage() {
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 rounded-xl border border-slate-200 text-sm focus:outline-hidden"
+                  className="w-full px-4 py-2 rounded-xl border border-stone-200 text-sm focus:outline-hidden"
                 />
               </div>
 
@@ -189,13 +189,13 @@ export default function AdminCategoriesPage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                  className="px-4 py-2 rounded-xl border border-stone-200 text-xs font-bold text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-md"
+                  className="px-5 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] text-white rounded-xl text-xs font-bold shadow-sm"
                 >
                   Save Category
                 </button>

@@ -8,11 +8,9 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { login, loading } = useAuthStore();
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e) => {
@@ -21,100 +19,54 @@ export default function LoginPage() {
       toast.error('Please enter your email and password');
       return;
     }
-
     const res = await login(email, password);
     if (res.success) {
       toast.success(`Welcome back, ${res.user.name}!`);
-      if (res.user.role === 'ADMIN') {
-        navigate('/admin');
-      } else {
-        navigate(from, { replace: true });
-      }
-    } else {
-      toast.error(res.message);
-    }
+      if (res.user.role === 'ADMIN') navigate('/admin');
+      else navigate(from, { replace: true });
+    } else toast.error(res.message);
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
-      <div className="max-w-md w-full bg-white rounded-xl border border-slate-200/90 p-6 sm:p-8 shadow-xs">
-        <div className="text-center mb-6">
-          <img src="/logo.jpg" alt="LHQ Bangladesh" className="w-12 h-12 mx-auto mb-3 rounded-lg object-cover border border-slate-200" />
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">Sign in to LHQ Bangladesh</h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Access your orders, saved addresses, and profile
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <main className="min-h-[80vh] flex items-center justify-center px-4 py-12 sm:px-6">
+      <section className="ui-card w-full max-w-md p-6 sm:p-8">
+        <header className="mb-8">
+          <img src="/logo.jpg" alt="LHQ Bangladesh" className="mb-6 h-12 w-12 rounded-lg border border-line object-cover" />
+          <p className="ui-kicker mb-3"><span className="ui-mark" /> Customer account</p>
+          <h1 className="text-2xl text-ink">Sign in to LHQ Bangladesh</h1>
+          <p className="mt-2 text-sm leading-6 text-muted">Access your orders, saved addresses, and profile</p>
+        </header>
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">
-              Email address
-            </label>
+            <label className="ui-label">Email address</label>
             <div className="relative">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="name@example.com"
-                className="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-200 text-xs sm:text-sm focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
-              />
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="name@example.com" className="ui-input pl-10" />
+              <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             </div>
           </div>
-
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">
-              Password
-            </label>
+            <label className="ui-label">Password</label>
             <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-                className="w-full pl-9 pr-10 py-2 rounded-lg border border-slate-200 text-xs sm:text-sm focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
-              />
-              <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors focus:outline-hidden"
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-              >
-                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              <input type={showPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" className="ui-input pl-10 pr-11" />
+              <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+              <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-ink" aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
               </button>
             </div>
           </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2.5 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-medium rounded-lg text-xs sm:text-sm transition-colors flex items-center justify-center gap-1.5"
-          >
-            {loading ? 'Authenticating...' : 'Sign in'}
-            {!loading && <ArrowRight className="w-4 h-4" />}
+          <button type="submit" disabled={loading} className="ui-btn ui-btn-accent ui-btn-lg w-full">
+            {loading ? 'Authenticating...' : 'Sign in'}{!loading && <ArrowRight className="h-4 w-4" />}
           </button>
         </form>
-
-        <div className="mt-5 pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
-          <p>
-            Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-sky-600 hover:underline">
-              Register now
-            </Link>
-          </p>
+        <div className="mt-6 border-t border-line pt-5 text-sm text-muted">
+          <p>Don’t have an account? <Link to="/register" className="font-medium text-ember hover:underline">Register now</Link></p>
         </div>
-
-        {/* Demo Credentials Box */}
-        <div className="mt-5 p-3 bg-slate-50 border border-slate-200 rounded-lg text-[11px] text-slate-600 space-y-1">
-          <p className="font-semibold text-slate-800">Demo accounts:</p>
+        <aside className="mt-6 rounded-lg border border-line bg-raised p-4 text-xs leading-5 text-ink-soft">
+          <p className="mb-1 font-medium text-ink">Demo accounts</p>
           <p><strong>Admin:</strong> admin@gadgetzone.com / Admin@123456</p>
           <p><strong>Customer:</strong> customer@example.com / Customer@123</p>
-        </div>
-      </div>
-    </div>
+        </aside>
+      </section>
+    </main>
   );
 }

@@ -5,25 +5,29 @@ export default function Pagination({ currentPage, totalPages, onPageChange }) {
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-8">
+    <div className="mt-8 flex items-center justify-center gap-3">
       <button
+        type="button"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="p-2 rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 transition"
+        className="ui-btn ui-btn-secondary ui-btn-sm h-9 w-9 p-0"
+        aria-label="Previous page"
       >
-        <ChevronLeft className="w-5 h-5" />
+        <ChevronLeft className="h-4 w-4" />
       </button>
 
-      <span className="text-sm font-medium text-slate-700 px-3">
+      <span className="font-mono text-[11px] text-muted">
         Page {currentPage} of {totalPages}
       </span>
 
       <button
+        type="button"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="p-2 rounded-lg border border-slate-200 bg-white text-slate-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50 transition"
+        className="ui-btn ui-btn-secondary ui-btn-sm h-9 w-9 p-0"
+        aria-label="Next page"
       >
-        <ChevronRight className="w-5 h-5" />
+        <ChevronRight className="h-4 w-4" />
       </button>
     </div>
   );

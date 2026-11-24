@@ -3,24 +3,21 @@ import { PackageOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function EmptyState({
-  title = 'No items found',
+  title = 'Nothing here yet',
   description = 'We could not find anything matching your request.',
   actionText,
   actionLink,
   icon: Icon = PackageOpen,
 }) {
   return (
-    <div className="text-center py-16 px-4">
-      <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
-        <Icon className="w-8 h-8" />
+    <div className="rounded-xl border border-line bg-surface px-6 py-16 text-center">
+      <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-raised text-muted">
+        <Icon className="h-5 w-5" />
       </div>
-      <h3 className="text-lg font-bold text-slate-800 mb-1">{title}</h3>
-      <p className="text-sm text-slate-500 max-w-sm mx-auto mb-6">{description}</p>
+      <h3 className="text-[18px] font-medium text-ink">{title}</h3>
+      <p className="mx-auto mt-1.5 max-w-sm text-[13px] leading-5 text-muted">{description}</p>
       {actionText && actionLink && (
-        <Link
-          to={actionLink}
-          className="inline-flex items-center justify-center px-6 py-2.5 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 transition shadow-sm"
-        >
+        <Link to={actionLink} className="ui-btn ui-btn-primary mt-6">
           {actionText}
         </Link>
       )}

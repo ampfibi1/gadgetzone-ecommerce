@@ -1,21 +1,297 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-paper: #f4efe6;
+  --color-surface: #fbf8f1;
+  --color-raised: #ece4d7;
+  --color-ink: #1c1915;
+  --color-ink-soft: #3b352d;
+  --color-muted: #6f6559;
+  --color-line: #ded4c4;
+  --color-line-strong: #c9bca8;
+  --color-ember: #b6420f;
+  --color-ember-strong: #94330a;
+  --color-ember-soft: #f0dfd2;
+  --color-positive: #2f6b4f;
+  --color-danger: #9c2b2b;
+  --color-night: #16130f;
+  --color-night-soft: #241f19;
+  --color-night-text: #f5efe4;
+  --color-night-muted: #b7aa99;
+  --color-night-line: #3a332a;
+
+  --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @layer base {
   html {
     color-scheme: light;
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: #f8fafc;
-    color: #0f172a;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Accessible focus styling */
+  ::selection {
+    background-color: var(--color-ember);
+    color: #ffffff;
+  }
+
   :focus-visible {
-    outline: 2px solid #0284c7;
+    outline: 2px solid var(--color-ember);
     outline-offset: 2px;
+  }
+
+  .lucide {
+    stroke-width: 1.5;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+  }
+}
+
+@layer components {
+  .ui-container {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+
+  @media (min-width: 640px) {
+    .ui-container {
+      padding-inline: 32px;
+    }
+  }
+
+  .ui-card {
+    border: 1px solid var(--color-line);
+    border-radius: 12px;
+    background-color: var(--color-surface);
+  }
+
+  .ui-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 150ms var(--ease-soft),
+      border-color 150ms var(--ease-soft),
+      color 150ms var(--ease-soft),
+      opacity 150ms var(--ease-soft);
+  }
+
+  .ui-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .ui-btn-primary {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .ui-btn-primary:hover:not(:disabled) {
+    background-color: var(--color-ink-soft);
+  }
+
+  .ui-btn-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    border-color: var(--color-line);
+  }
+
+  .ui-btn-secondary:hover:not(:disabled) {
+    background-color: var(--color-raised);
+    border-color: var(--color-line-strong);
+  }
+
+  .ui-btn-accent {
+    background-color: var(--color-ember);
+    color: #ffffff;
+  }
+
+  .ui-btn-accent:hover:not(:disabled) {
+    background-color: var(--color-ember-strong);
+  }
+
+  .ui-btn-ghost {
+    background-color: transparent;
+    color: var(--color-ink-soft);
+    padding-inline: 10px;
+  }
+
+  .ui-btn-ghost:hover:not(:disabled) {
+    background-color: var(--color-raised);
+    color: var(--color-ink);
+  }
+
+  .ui-btn-sm {
+    height: 32px;
+    padding-inline: 12px;
+    font-size: 12px;
+  }
+
+  .ui-btn-lg {
+    height: 44px;
+    padding-inline: 20px;
+    font-size: 14px;
+  }
+
+  .ui-input {
+    height: 40px;
+    width: 100%;
+    border: 1px solid var(--color-line);
+    border-radius: 8px;
+    background-color: var(--color-surface);
+    padding: 0 12px;
+    font-size: 13px;
+    color: var(--color-ink);
+    transition:
+      border-color 150ms var(--ease-soft),
+      box-shadow 150ms var(--ease-soft);
+  }
+
+  .ui-input::placeholder {
+    color: var(--color-muted);
+  }
+
+  .ui-input:focus {
+    outline: none;
+    border-color: var(--color-ember);
+    box-shadow: 0 0 0 3px rgba(182, 66, 15, 0.12);
+  }
+
+  textarea.ui-input {
+    height: auto;
+    padding: 10px 12px;
+    line-height: 1.5;
+  }
+
+  select.ui-input {
+    padding-right: 32px;
+  }
+
+  .ui-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+  }
+
+  .ui-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1;
+    color: var(--color-muted);
+  }
+
+  .ui-mark {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    flex: none;
+    background-color: var(--color-ember);
+  }
+
+  .ui-price {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+  }
+
+  .ui-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 22px;
+    padding: 0 8px;
+    border: 1px solid var(--color-line);
+    border-radius: 4px;
+    background-color: var(--color-surface);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .ui-tag-accent {
+    border-color: rgba(182, 66, 15, 0.3);
+    background-color: var(--color-ember-soft);
+    color: var(--color-ember);
+  }
+
+  .ui-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-muted);
+  }
+
+  .ui-dot {
+    width: 6px;
+    height: 6px;
+    flex: none;
+    border-radius: 999px;
+    background-color: currentColor;
+  }
+
+  .ui-divider {
+    height: 1px;
+    border: 0;
+    background-color: var(--color-line);
+  }
+
+  .ui-shadow {
+    box-shadow: 0 8px 24px rgba(28, 25, 21, 0.08);
+  }
+
+  @keyframes ui-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .ui-slide-enter {
+    animation: ui-fade-in 300ms var(--ease-soft);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-slide-enter {
+      animation: none;
+    }
   }
 }

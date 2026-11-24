@@ -5,13 +5,16 @@ import EmptyState from '../common/EmptyState';
 export default function ProductGrid({ products = [], loading = false }) {
   if (loading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {[...Array(8)].map((_, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-slate-100 p-4 animate-pulse">
-            <div className="aspect-square bg-slate-200 rounded-xl mb-4" />
-            <div className="h-4 bg-slate-200 rounded-md w-3/4 mb-2" />
-            <div className="h-3 bg-slate-200 rounded-md w-1/2 mb-4" />
-            <div className="h-6 bg-slate-200 rounded-md w-1/3" />
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {[...Array(8)].map((_, index) => (
+          <div
+            key={index}
+            className="animate-pulse rounded-xl border border-line bg-surface p-4"
+          >
+            <div className="aspect-square rounded-lg bg-raised" />
+            <div className="mt-3 h-3 w-3/4 rounded bg-raised" />
+            <div className="mt-2 h-3 w-1/2 rounded bg-raised" />
+            <div className="mt-4 h-8 rounded bg-raised" />
           </div>
         ))}
       </div>
@@ -22,15 +25,15 @@ export default function ProductGrid({ products = [], loading = false }) {
     return (
       <EmptyState
         title="No gadgets found"
-        description="Try clearing filters or searching for something else."
-        actionText="View All Products"
+        description="Try another category or search term."
+        actionText="View all products"
         actionLink="/products"
       />
     );
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

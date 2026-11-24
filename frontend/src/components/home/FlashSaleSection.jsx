@@ -1,12 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ShoppingCart, Zap } from 'lucide-react';
+import { ArrowRight, ShoppingCart } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useCartStore } from '../../stores/cartStore';
 import Countdown from '../common/Countdown';
 import useCountdown from '../../hooks/useCountdown';
 
-const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80';
+const FALLBACK_IMAGE =
+  'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80';
+
+const GRID_COLUMNS = {
+  1: 'xl:grid-cols-1',
+  2: 'xl:grid-cols-2',
+  3: 'xl:grid-cols-3',
+  4: 'xl:grid-cols-4',
+  5: 'xl:grid-cols-5',
+  6: 'xl:grid-cols-6',
+};
 
 function FlashSaleCard({ product, discountPercent, onAddToCart }) {
   const stock = Number(product.stock) || 0;
@@ -14,10 +24,10 @@ function FlashSaleCard({ product, discountPercent, onAddToCart }) {
   const image = product.images?.[0]?.url || FALLBACK_IMAGE;
 
   return (
-    <article className="flex min-w-0 w-full flex-col rounded-xl border border-slate-200 bg-white p-3 shadow-xs transition-colors hover:border-slate-300">
+    <article className="flex min-w-0 flex-col rounded-lg border border-line bg-surface p-3">
       <Link
         to={`/products/${product.slug}`}
-        className="relative block aspect-square overflow-hidden rounded-lg bg-slate-50"
+        className="relative block aspect-square overflow-hidden rounded-md bg-raised"
       >
         <img
           src={image}
@@ -25,37 +35,37 @@ function FlashSaleCard({ product, discountPercent, onAddToCart }) {
           className="h-full w-full object-contain p-3"
           loading="lazy"
         />
-        <span className="absolute left-2 top-2 rounded bg-rose-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">
-          {discountPercent}% off
+        <span className="absolute left-2 top-2 font-mono text-[10px] text-ember">
+          −{discountPercent}%
         </span>
       </Link>
 
       <Link
         to={`/products/${product.slug}`}
-        className="mt-2 line-clamp-2 min-h-[2.25rem] text-xs font-medium leading-snug text-slate-900 transition-colors hover:text-sky-600"
+        className="mt-3 line-clamp-2 min-h-[2.5rem] text-[12px] font-medium leading-5 text-ink transition-colors hover:text-ember"
       >
         {product.name}
       </Link>
 
-      <div className="mt-1.5 flex items-baseline gap-1.5">
-        <span className="text-sm font-bold tabular-nums text-slate-900">
+      <div className="mt-2 flex items-baseline gap-2">
+        <span className="font-mono text-[14px] font-medium tabular-nums tracking-[-0.02em] text-ink">
           ৳{Number(product.flashPrice).toLocaleString('en-BD')}
         </span>
-        <span className="text-[11px] text-slate-400 line-through tabular-nums">
+        <span className="font-mono text-[10px] tabular-nums text-muted line-through">
           ৳{Number(product.regularPrice).toLocaleString('en-BD')}
         </span>
       </div>
 
-      <div className="mt-2">
-        <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
+      <div className="mt-3">
+        <div className="h-0.5 w-full overflow-hidden bg-line">
           <div
-            className={`h-full rounded-full ${stock <= 5 ? 'bg-rose-500' : 'bg-amber-500'}`}
+            className={`h-full ${stock <= 5 ? 'bg-danger' : 'bg-ember'}`}
             style={{ width: `${stockPercent}%` }}
           />
         </div>
-        <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500">
-          <span>Only {stock} left</span>
-          <span className="tabular-nums">{product.flashDiscountPercent}% off</span>
+        <div className="mt-1.5 flex items-center justify-between font-mono text-[9px] text-muted">
+          <span>{stock} left</span>
+          <span>{product.flashDiscountPercent}% off</span>
         </div>
       </div>
 
@@ -63,27 +73,23 @@ function FlashSaleCard({ product, discountPercent, onAddToCart }) {
         type="button"
         onClick={onAddToCart}
         disabled={stock <= 0}
-        className={`mt-2.5 inline-flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[11px] font-semibold transition-colors ${
-          stock <= 0
-            ? 'cursor-not-allowed bg-slate-100 text-slate-400'
-            : 'bg-slate-900 text-white hover:bg-slate-800'
-        }`}
+        className="ui-btn ui-btn-secondary ui-btn-sm mt-3 w-full"
       >
         <ShoppingCart className="h-3.5 w-3.5" />
-        Add to cart
+        Add
       </button>
     </article>
   );
 }
 
-export default function FlashSaleSection({ flashSale, loading = false }) {
+export default function FlashSaleSection({ flashSale, loading = false, className = '' }) {
   const addItem = useCartStore((state) => state.addItem);
   const countdown = useCountdown(flashSale?.endsAt);
 
   if (loading) {
     return (
-      <section id="flash-sale" className="mx-auto max-w-7xl scroll-mt-28 px-4 sm:px-6 lg:px-8">
-        <div className="h-56 animate-pulse rounded-2xl border border-slate-200 bg-white" />
+      <section id="flash-sale" className={`ui-container scroll-mt-24 ${className}`}>
+        <div className="h-56 animate-pulse rounded-xl border border-line bg-surface" />
       </section>
     );
   }
@@ -93,6 +99,7 @@ export default function FlashSaleSection({ flashSale, loading = false }) {
   }
 
   const discountPercent = flashSale.discountPercent;
+  const columnClass = GRID_COLUMNS[Math.min(flashSale.products.length, 6)] || GRID_COLUMNS[6];
 
   const handleAddToCart = (product) => {
     addItem(
@@ -103,51 +110,42 @@ export default function FlashSaleSection({ flashSale, loading = false }) {
       },
       1
     );
-    toast.success(`${product.name} added to cart at the flash price!`);
+    toast.success(`${product.name} added at the flash price`);
   };
 
   return (
-    <section id="flash-sale" className="mx-auto max-w-7xl scroll-mt-28 px-4 sm:px-6 lg:px-8">
-      <div className="overflow-hidden rounded-2xl border border-rose-100 bg-white shadow-xs">
-        {/* Header */}
-        <div className="flex flex-col justify-between gap-4 border-b border-slate-100 bg-gradient-to-r from-rose-50 via-orange-50 to-white px-5 py-4 sm:px-6 lg:flex-row lg:items-center">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-600 text-white">
-              <Zap className="h-5 w-5" />
+    <section id="flash-sale" className={`ui-container scroll-mt-24 ${className}`}>
+      <div className="overflow-hidden rounded-xl border border-line bg-surface">
+        <div className="flex flex-col gap-5 border-b border-line px-5 py-5 sm:px-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="ui-kicker">
+                <span className="ui-mark" />
+                Flash sale
+              </span>
+              <span className="ui-tag ui-tag-accent">{discountPercent}% off</span>
             </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-base font-bold tracking-tight text-slate-900 sm:text-lg">
-                  {flashSale.title || 'Flash sale'}
-                </h2>
-                <span className="rounded bg-rose-600 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">
-                  {discountPercent}% off
-                </span>
-              </div>
-              <p className="mt-0.5 text-xs text-slate-500">
-                {flashSale.subtitle || 'Limited-time prices on selected gadgets.'}
-              </p>
-            </div>
+            <h2 className="mt-2.5 text-[24px] font-medium leading-tight tracking-[-0.02em] text-ink sm:text-[28px]">
+              {flashSale.title || 'Flash sale'}
+            </h2>
+            <p className="mt-1.5 max-w-xl text-[12px] leading-5 text-muted">
+              {flashSale.subtitle || 'Limited-time prices on selected gadgets.'}
+            </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                Ends in
-              </span>
-              <Countdown endsAt={flashSale.endsAt} />
+          <div className="flex flex-wrap items-end gap-5">
+            <div>
+              <p className="font-mono text-[9px] text-muted">Ends in</p>
+              <Countdown endsAt={flashSale.endsAt} className="mt-2" />
             </div>
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-1 text-xs font-medium text-rose-700 transition-colors hover:text-rose-800"
-            >
-              View all <ArrowRight className="h-3.5 w-3.5" />
+            <Link to="/products" className="ui-btn ui-btn-secondary ui-btn-sm">
+              All deals
+              <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
 
-        {/* Product grid */}
-        <div className="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 sm:gap-4 sm:p-5 xl:grid-cols-6">
+        <div className={`grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 sm:gap-4 sm:p-5 ${columnClass}`}>
           {flashSale.products.map((product) => (
             <FlashSaleCard
               key={product.id}

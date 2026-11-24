@@ -25,20 +25,17 @@ export default function CustomerDashboardPage() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="ui-container py-8 sm:py-10">
       {/* Welcome Banner */}
-      <div className="bg-slate-950 rounded-xl p-6 sm:p-8 text-white mb-8 border border-slate-800">
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight mb-1">
-          Welcome back, {user?.name}
-        </h1>
-        <p className="text-slate-400 text-xs sm:text-sm">
-          Customer Portal: Review orders, profile details, and default delivery information.
-        </p>
-      </div>
+      <header className="mb-8 border-b border-line pb-6">
+        <p className="ui-kicker mb-3"><span className="ui-mark" /> Customer account</p>
+        <h1 className="text-2xl text-ink sm:text-3xl">Your account</h1>
+        <p className="mt-2 text-sm text-muted">Orders, profile details, and delivery information for {user?.name}</p>
+      </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Profile Summary Card */}
-        <div className="md:col-span-1 bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs space-y-5">
+        <div className="md:col-span-1 ui-card p-5 sm:p-6 space-y-5">
           <div className="flex items-center gap-3.5 pb-4 border-b border-slate-100">
             <div className="w-11 h-11 rounded-lg bg-slate-900 text-white flex items-center justify-center font-semibold text-base border border-slate-800">
               {user?.name?.[0]?.toUpperCase()}
@@ -76,12 +73,12 @@ export default function CustomerDashboardPage() {
         </div>
 
         {/* Recent Orders Card */}
-        <div className="md:col-span-2 bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs">
+        <div className="md:col-span-2 ui-card p-5 sm:p-6">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
             <h3 className="font-semibold text-sm text-slate-900 flex items-center gap-2">
-              <Package className="w-4 h-4 text-sky-600" /> Recent orders
+              <Package className="w-4 h-4 text-ember" /> Recent orders
             </h3>
-            <Link to="/account/orders" className="text-xs font-medium text-sky-600 hover:text-sky-700">
+            <Link to="/account/orders" className="text-xs font-medium text-ember hover:text-sky-700">
               View all
             </Link>
           </div>
@@ -137,6 +134,6 @@ export default function CustomerDashboardPage() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

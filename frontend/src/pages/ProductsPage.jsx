@@ -72,14 +72,14 @@ export default function ProductsPage() {
       {/* Header & Title */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl font-medium text-ink tracking-tight">
             {currentCategory
               ? `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1).replace('-', ' ')}`
               : currentSearch
               ? `Search results for "${currentSearch}"`
               : 'All gadgets'}
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-xs text-muted mt-1">
             Showing {pagination.total} genuine tech products in Bangladesh
           </p>
         </div>
@@ -89,7 +89,7 @@ export default function ProductsPage() {
           <select
             value={currentSort}
             onChange={(e) => updateFilter('sort', e.target.value)}
-            className="bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-700 font-medium focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
+            className="bg-surface border border-line text-xs rounded-lg px-3 py-2 text-ink-soft font-medium focus:ring-1 focus:ring-ember focus:outline-hidden"
           >
             <option value="">Sort by: Newest</option>
             <option value="price_asc">Price: Low to High</option>
@@ -103,15 +103,15 @@ export default function ProductsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Filters */}
         <aside className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-              <h3 className="font-semibold text-slate-900 flex items-center gap-2 text-xs">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" /> Filter gadgets
+          <div className="bg-surface p-5 rounded-xl border border-line">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-line">
+              <h3 className="font-semibold text-ink flex items-center gap-2 text-xs">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-muted" /> Filter gadgets
               </h3>
               {(currentCategory || currentSearch || currentSort) && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs font-medium text-sky-600 hover:text-sky-700"
+                  className="text-xs font-medium text-ember hover:text-ember-strong"
                 >
                   Clear all
                 </button>
@@ -120,14 +120,14 @@ export default function ProductsPage() {
 
             {/* Categories */}
             <div>
-              <h4 className="font-medium text-[11px] text-slate-400 mb-2">Categories</h4>
+              <h4 className="font-medium text-[11px] text-muted mb-2">Categories</h4>
               <div className="space-y-1">
                 <button
                   onClick={() => updateFilter('category', '')}
                   className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     !currentCategory
-                      ? 'bg-slate-900 text-white'
-                      : 'text-slate-600 hover:bg-slate-50'
+                      ? 'bg-ink text-white'
+                      : 'text-ink-soft hover:bg-raised'
                   }`}
                 >
                   All categories
@@ -138,14 +138,14 @@ export default function ProductsPage() {
                     onClick={() => updateFilter('category', cat.slug)}
                     className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
                       currentCategory === cat.slug
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-600 hover:bg-slate-50'
+                        ? 'bg-ink text-white'
+                        : 'text-ink-soft hover:bg-raised'
                     }`}
                   >
                     <span>{cat.name}</span>
                     {cat._count?.products !== undefined && (
                       <span className={`text-[10px] px-1.5 py-0.5 rounded tabular-nums ${
-                        currentCategory === cat.slug ? 'bg-slate-800 text-slate-200' : 'bg-slate-100 text-slate-500'
+                        currentCategory === cat.slug ? 'bg-ink-soft text-paper' : 'bg-raised text-muted'
                       }`}>
                         {cat._count.products}
                       </span>

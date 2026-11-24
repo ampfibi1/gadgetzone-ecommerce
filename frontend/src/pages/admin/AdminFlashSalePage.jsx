@@ -34,12 +34,12 @@ const buildEmptyForm = () => ({
 
 const getStatus = (sale) => {
   const now = Date.now();
-  if (!sale.isActive) return { label: 'Paused', className: 'bg-slate-100 text-slate-600 border-slate-200' };
+  if (!sale.isActive) return { label: 'Paused', className: 'bg-stone-100 text-stone-600 border-stone-200' };
   if (new Date(sale.startsAt).getTime() > now) {
     return { label: 'Scheduled', className: 'bg-sky-50 text-sky-700 border-sky-200' };
   }
   if (new Date(sale.endsAt).getTime() < now) {
-    return { label: 'Ended', className: 'bg-slate-100 text-slate-500 border-slate-200' };
+    return { label: 'Ended', className: 'bg-stone-100 text-stone-500 border-stone-200' };
   }
   return { label: 'Live now', className: 'bg-emerald-50 text-emerald-700 border-emerald-200' };
 };
@@ -216,24 +216,24 @@ export default function AdminFlashSalePage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="ui-container py-8">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Flash sales</h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <h1 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">Flash sales</h1>
+          <p className="text-xs text-stone-500 mt-0.5">
             Run a countdown campaign on the home page with a custom discount and product list.
           </p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors"
+          className="px-3.5 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors"
         >
           <Plus className="w-3.5 h-3.5" /> Create flash sale
         </button>
@@ -242,15 +242,15 @@ export default function AdminFlashSalePage() {
       {loading ? (
         <LoadingSpinner />
       ) : flashSales.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center">
+        <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200 p-10 text-center">
           <Flame className="w-8 h-8 text-rose-300 mx-auto mb-3" />
-          <p className="text-sm font-medium text-slate-700">No flash sales yet</p>
-          <p className="text-xs text-slate-500 mt-1 mb-4">
+          <p className="text-sm font-medium text-stone-700">No flash sales yet</p>
+          <p className="text-xs text-stone-500 mt-1 mb-4">
             Create a campaign to show discounted products with a live countdown.
           </p>
           <button
             onClick={openCreateModal}
-            className="px-3.5 py-2 bg-rose-600 hover:bg-rose-500 text-white font-medium rounded-lg text-xs inline-flex items-center gap-1.5"
+            className="px-3.5 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] text-white font-medium rounded-lg text-xs inline-flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5" /> Create flash sale
           </button>
@@ -262,11 +262,11 @@ export default function AdminFlashSalePage() {
             const saleProducts = sale.products || [];
 
             return (
-              <div key={sale.id} className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs">
+              <div key={sale.id} className="bg-[var(--color-surface)] rounded-xl border border-stone-200 p-5 shadow-xs">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-sm font-semibold text-slate-900">{sale.title}</h3>
+                      <h3 className="text-sm font-semibold text-stone-900">{sale.title}</h3>
                       <span className={`rounded border px-1.5 py-0.5 text-[10px] font-medium ${status.className}`}>
                         {status.label}
                       </span>
@@ -276,12 +276,12 @@ export default function AdminFlashSalePage() {
                     </div>
 
                     {sale.subtitle && (
-                      <p className="mt-1 text-xs text-slate-500">{sale.subtitle}</p>
+                      <p className="mt-1 text-xs text-stone-500">{sale.subtitle}</p>
                     )}
 
-                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-slate-500">
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-stone-500">
                       <span className="inline-flex items-center gap-1">
-                        <CalendarClock className="w-3.5 h-3.5 text-slate-400" />
+                        <CalendarClock className="w-3.5 h-3.5 text-stone-400" />
                         {formatDateTime(sale.startsAt)} → {formatDateTime(sale.endsAt)}
                       </span>
                       <span>{saleProducts.length} products</span>
@@ -292,7 +292,7 @@ export default function AdminFlashSalePage() {
                         {saleProducts.slice(0, 6).map((item) => (
                           <div
                             key={item.id}
-                            className="h-9 w-9 overflow-hidden rounded-md border border-slate-200 bg-slate-50"
+                            className="h-9 w-9 overflow-hidden rounded-md border border-stone-200 bg-stone-50"
                             title={item.product?.name}
                           >
                             {item.product?.images?.[0]?.url ? (
@@ -302,12 +302,12 @@ export default function AdminFlashSalePage() {
                                 className="h-full w-full object-contain p-0.5"
                               />
                             ) : (
-                              <div className="h-full w-full bg-slate-100" />
+                              <div className="h-full w-full bg-stone-100" />
                             )}
                           </div>
                         ))}
                         {saleProducts.length > 6 && (
-                          <span className="text-[11px] font-medium text-slate-400">
+                          <span className="text-[11px] font-medium text-stone-400">
                             +{saleProducts.length - 6}
                           </span>
                         )}
@@ -318,20 +318,20 @@ export default function AdminFlashSalePage() {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       onClick={() => toggleActive(sale)}
-                      className="rounded-lg border border-slate-200 px-2.5 py-1.5 text-[11px] font-medium text-slate-600 hover:bg-slate-50"
+                      className="rounded-lg border border-stone-200 px-2.5 py-1.5 text-[11px] font-medium text-stone-600 hover:bg-stone-50"
                     >
                       {sale.isActive ? 'Pause' : 'Activate'}
                     </button>
                     <button
                       onClick={() => openEditModal(sale)}
-                      className="p-1.5 text-slate-500 hover:text-sky-600 rounded-lg hover:bg-slate-50"
+                      className="p-1.5 text-stone-500 hover:text-[var(--color-ember)] rounded-lg hover:bg-stone-50"
                       aria-label={`Edit ${sale.title}`}
                     >
                       <Pencil className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(sale)}
-                      className="p-1.5 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50"
+                      className="p-1.5 text-stone-400 hover:text-red-600 rounded-lg hover:bg-red-50"
                       aria-label={`Delete ${sale.title}`}
                     >
                       <Trash2 className="w-4 h-4" />
@@ -346,18 +346,18 @@ export default function AdminFlashSalePage() {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-7 shadow-2xl">
-            <h3 className="text-lg font-bold text-slate-900">
+          <div className="bg-[var(--color-surface)] rounded-xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-7 shadow-lg">
+            <h3 className="text-lg font-bold text-stone-900">
               {editingSale ? 'Edit flash sale' : 'Create flash sale'}
             </h3>
-            <p className="text-xs text-slate-500 mt-0.5 mb-4">
+            <p className="text-xs text-stone-500 mt-0.5 mb-4">
               The discount is applied to each selected product&apos;s current price.
             </p>
 
             <form onSubmit={handleSave} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
                     Campaign title *
                   </label>
                   <input
@@ -367,12 +367,12 @@ export default function AdminFlashSalePage() {
                     onChange={handleChange}
                     required
                     placeholder="e.g. Midnight Flash Sale"
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:outline-hidden focus:border-rose-400"
+                    className="w-full px-3.5 py-2 rounded-lg border border-stone-200 text-sm focus:outline-hidden focus:border-rose-400"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
                     Supporting line
                   </label>
                   <input
@@ -381,12 +381,12 @@ export default function AdminFlashSalePage() {
                     value={form.subtitle}
                     onChange={handleChange}
                     placeholder="Three days only — extra savings on selected gadgets."
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:outline-hidden focus:border-rose-400"
+                    className="w-full px-3.5 py-2 rounded-lg border border-stone-200 text-sm focus:outline-hidden focus:border-rose-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
                     Discount percentage *
                   </label>
                   <input
@@ -397,23 +397,23 @@ export default function AdminFlashSalePage() {
                     min="1"
                     max="90"
                     required
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:outline-hidden focus:border-rose-400"
+                    className="w-full px-3.5 py-2 rounded-lg border border-stone-200 text-sm focus:outline-hidden focus:border-rose-400"
                   />
                 </div>
 
-                <label className="flex items-center gap-2 text-xs font-medium text-slate-700 sm:mt-6">
+                <label className="flex items-center gap-2 text-xs font-medium text-stone-700 sm:mt-6">
                   <input
                     type="checkbox"
                     name="isActive"
                     checked={form.isActive}
                     onChange={handleChange}
-                    className="h-4 w-4 rounded border-slate-300 text-rose-600 focus:ring-rose-500"
+                    className="h-4 w-4 rounded border-stone-300 text-rose-600 focus:ring-rose-500"
                   />
                   Campaign enabled
                 </label>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
                     Starts at *
                   </label>
                   <input
@@ -422,12 +422,12 @@ export default function AdminFlashSalePage() {
                     value={form.startsAt}
                     onChange={handleChange}
                     required
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:outline-hidden focus:border-rose-400"
+                    className="w-full px-3.5 py-2 rounded-lg border border-stone-200 text-sm focus:outline-hidden focus:border-rose-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-semibold text-stone-700 mb-1">
                     Ends at *
                   </label>
                   <input
@@ -436,46 +436,46 @@ export default function AdminFlashSalePage() {
                     value={form.endsAt}
                     onChange={handleChange}
                     required
-                    className="w-full px-3.5 py-2 rounded-lg border border-slate-200 text-sm focus:outline-hidden focus:border-rose-400"
+                    className="w-full px-3.5 py-2 rounded-lg border border-stone-200 text-sm focus:outline-hidden focus:border-rose-400"
                   />
                 </div>
               </div>
 
-              <div className="rounded-xl border border-slate-200">
-                <div className="flex flex-col gap-2 border-b border-slate-100 p-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="rounded-xl border border-stone-200">
+                <div className="flex flex-col gap-2 border-b border-stone-100 p-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="text-xs font-semibold text-slate-800">
+                    <p className="text-xs font-semibold text-stone-800">
                       Products ({form.productIds.length} selected)
                     </p>
-                    <p className="text-[11px] text-slate-500">
+                    <p className="text-[11px] text-stone-500">
                       Only products with stock will appear on the storefront.
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2">
                     <div className="relative">
-                      <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <Search className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-1/2 -transtone-y-1/2" />
                       <input
                         type="text"
                         value={productSearch}
                         onChange={(event) => setProductSearch(event.target.value)}
                         placeholder="Search products"
-                        className="w-40 rounded-lg border border-slate-200 py-1.5 pl-8 pr-2 text-xs focus:outline-hidden focus:border-rose-400"
+                        className="w-40 rounded-lg border border-stone-200 py-1.5 pl-8 pr-2 text-xs focus:outline-hidden focus:border-rose-400"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={toggleAllVisible}
-                      className="rounded-lg border border-slate-200 px-2.5 py-1.5 text-[11px] font-medium text-slate-600 hover:bg-slate-50"
+                      className="rounded-lg border border-stone-200 px-2.5 py-1.5 text-[11px] font-medium text-stone-600 hover:bg-stone-50"
                     >
                       {allVisibleSelected ? 'Clear' : 'Select all'}
                     </button>
                   </div>
                 </div>
 
-                <div className="max-h-56 overflow-y-auto divide-y divide-slate-100">
+                <div className="max-h-56 overflow-y-auto divide-y divide-stone-100">
                   {filteredProducts.length === 0 ? (
-                    <p className="p-4 text-center text-xs text-slate-400">No products found.</p>
+                    <p className="p-4 text-center text-xs text-stone-400">No products found.</p>
                   ) : (
                     filteredProducts.map((product) => {
                       const checked = form.productIds.includes(product.id);
@@ -483,16 +483,16 @@ export default function AdminFlashSalePage() {
                         <label
                           key={product.id}
                           className={`flex cursor-pointer items-center gap-3 p-2.5 text-xs ${
-                            checked ? 'bg-rose-50/50' : 'hover:bg-slate-50'
+                            checked ? 'bg-rose-50/50' : 'hover:bg-stone-50'
                           }`}
                         >
                           <input
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleProduct(product.id)}
-                            className="h-4 w-4 rounded border-slate-300 text-rose-600 focus:ring-rose-500"
+                            className="h-4 w-4 rounded border-stone-300 text-rose-600 focus:ring-rose-500"
                           />
-                          <div className="h-8 w-8 overflow-hidden rounded border border-slate-200 bg-slate-50 shrink-0">
+                          <div className="h-8 w-8 overflow-hidden rounded border border-stone-200 bg-stone-50 shrink-0">
                             {product.images?.[0]?.url ? (
                               <img
                                 src={product.images[0].url}
@@ -502,8 +502,8 @@ export default function AdminFlashSalePage() {
                             ) : null}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <p className="truncate font-medium text-slate-800">{product.name}</p>
-                            <p className="text-[11px] text-slate-500">
+                            <p className="truncate font-medium text-stone-800">{product.name}</p>
+                            <p className="text-[11px] text-stone-500">
                               ৳{Number(product.price).toLocaleString('en-BD')} · {product.stock} in stock
                             </p>
                           </div>
@@ -518,14 +518,14 @@ export default function AdminFlashSalePage() {
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50"
+                  className="px-4 py-2 rounded-lg border border-stone-200 text-xs font-medium text-stone-600 hover:bg-stone-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-4 py-2 bg-rose-600 hover:bg-rose-500 disabled:opacity-60 text-white rounded-lg text-xs font-semibold"
+                  className="px-4 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] disabled:opacity-60 text-white rounded-lg text-xs font-semibold"
                 >
                   {saving ? 'Saving...' : editingSale ? 'Save changes' : 'Publish flash sale'}
                 </button>

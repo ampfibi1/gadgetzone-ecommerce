@@ -49,22 +49,22 @@ export default function AdminProductsPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="ui-container py-8">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Product catalog</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Manage products, pricing, categories, and inventory</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">Product catalog</h1>
+          <p className="text-xs text-stone-500 mt-0.5">Manage products, pricing, categories, and inventory</p>
         </div>
 
         <Link
           to="/admin/products/new"
-          className="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors self-start sm:self-auto"
+          className="px-3.5 py-2 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors self-start sm:self-auto"
         >
           <Plus className="w-3.5 h-3.5" /> Add new product
         </Link>
@@ -77,11 +77,11 @@ export default function AdminProductsPage() {
           placeholder="Search by product name or SKU..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
+          className="flex-1 px-3 py-2 rounded-lg border border-stone-200 text-xs focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
         />
         <button
           type="submit"
-          className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-lg text-xs transition-colors"
+          className="px-3.5 py-2 bg-stone-900 hover:bg-stone-800 text-white font-medium rounded-lg text-xs transition-colors"
         >
           Search
         </button>
@@ -91,14 +91,14 @@ export default function AdminProductsPage() {
       {loading ? (
         <LoadingSpinner />
       ) : products.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400 text-xs">
+        <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200 p-10 text-center text-stone-400 text-xs">
           No products found.
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200/90 overflow-hidden shadow-xs">
+        <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200/90 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+              <thead className="bg-stone-50 text-stone-600 font-medium border-b border-stone-200">
                 <tr>
                   <th className="px-6 py-4">Product</th>
                   <th className="px-6 py-4">Category</th>
@@ -108,36 +108,36 @@ export default function AdminProductsPage() {
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-800">
+              <tbody className="divide-y divide-stone-100 text-stone-800">
                 {products.map((prod) => (
-                  <tr key={prod.id} className="hover:bg-slate-50/50">
+                  <tr key={prod.id} className="hover:bg-stone-50/50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
                         <img
                           src={prod.images?.[0]?.url || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=80'}
                           alt={prod.name}
-                          className="w-12 h-12 rounded-lg object-cover bg-slate-100 shrink-0"
+                          className="w-12 h-12 rounded-lg object-cover bg-stone-100 shrink-0"
                         />
                         <div>
-                          <p className="font-bold text-slate-900 text-xs line-clamp-1">{prod.name}</p>
-                          <p className="text-[10px] text-slate-400 font-mono mt-0.5">{prod.sku || 'No SKU'}</p>
+                          <p className="font-bold text-stone-900 text-xs line-clamp-1">{prod.name}</p>
+                          <p className="text-[10px] text-stone-400 font-mono mt-0.5">{prod.sku || 'No SKU'}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 font-semibold text-slate-700">
+                    <td className="px-6 py-4 font-semibold text-stone-700">
                       {prod.category?.name || 'Uncategorized'}
                     </td>
-                    <td className="px-6 py-4 font-black text-slate-900">
+                    <td className="px-6 py-4 font-semibold text-stone-900">
                       ৳{prod.price?.toLocaleString('en-BD')}
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`font-bold ${prod.stock <= 5 ? 'text-amber-600' : 'text-slate-800'}`}>
+                      <span className={`font-bold ${prod.stock <= 5 ? 'text-amber-600' : 'text-stone-800'}`}>
                         {prod.stock} units
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <span
-                        className={`px-2.5 py-0.5 text-[10px] font-bold rounded-full ${
+                        className={`px-2.5 py-0.5 text-[11px] font-medium rounded-full ${
                           prod.isActive
                             ? 'bg-emerald-100 text-emerald-800'
                             : 'bg-red-100 text-red-800'
@@ -150,14 +150,14 @@ export default function AdminProductsPage() {
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           to={`/admin/products/edit/${prod.id}`}
-                          className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition"
+                          className="p-1.5 text-[var(--color-ember)] hover:bg-blue-50 rounded-lg transition-colors"
                           title="Edit Product"
                         >
                           <Edit className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => handleDelete(prod.id, prod.name)}
-                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition"
+                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                           title="Deactivate Product"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -170,7 +170,7 @@ export default function AdminProductsPage() {
             </table>
           </div>
 
-          <div className="p-4 border-t border-slate-100">
+          <div className="p-4 border-t border-stone-100">
             <Pagination
               currentPage={pagination.page}
               totalPages={pagination.pages}

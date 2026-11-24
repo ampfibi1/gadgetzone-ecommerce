@@ -25,31 +25,31 @@ export default function CartPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200">
+      <div className="flex items-center justify-between mb-8 pb-4 border-b border-line">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Shopping cart</h1>
-          <p className="text-xs text-slate-500 mt-1">Review your selected items before proceeding to checkout</p>
+          <h1 className="text-2xl font-medium text-ink tracking-tight">Shopping cart</h1>
+          <p className="text-xs text-muted mt-1">Review your selected items before proceeding to checkout</p>
         </div>
         <button
           onClick={clearCart}
-          className="text-xs font-medium text-slate-500 hover:text-rose-600 transition-colors"
+          className="text-xs font-medium text-muted hover:text-danger transition-colors"
         >
           Clear cart
         </button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs">
-          <div className="divide-y divide-slate-100">
+        <div className="lg:col-span-2 bg-surface rounded-xl border border-line p-5 shadow-xs">
+          <div className="divide-y divide-line">
             {items.map((item) => (
               <CartItem key={item.product.id} item={item} />
             ))}
           </div>
 
-          <div className="mt-5 pt-4 border-t border-slate-100">
+          <div className="mt-5 pt-4 border-t border-line">
             <Link
               to="/products"
-              className="inline-flex items-center gap-1.5 text-xs font-medium text-sky-600 hover:text-sky-700 transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-ember hover:text-ember-strong transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Continue shopping
             </Link>

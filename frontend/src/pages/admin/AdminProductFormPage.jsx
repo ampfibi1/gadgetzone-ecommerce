@@ -143,25 +143,25 @@ export default function AdminProductFormPage() {
   if (fetching) return <LoadingSpinner fullScreen />;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-4">
-        <Link to="/admin/products" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+        <Link to="/admin/products" className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to products
         </Link>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-8 shadow-xs">
-        <h1 className="text-xl font-bold text-slate-900 tracking-tight mb-1">
+      <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200/90 p-6 sm:p-8 shadow-xs">
+        <h1 className="text-xl font-bold text-stone-900 tracking-tight mb-1">
           {isEditMode ? 'Edit gadget' : 'Add new gadget'}
         </h1>
-        <p className="text-xs text-slate-500 mb-6">
+        <p className="text-xs text-stone-500 mb-6">
           Provide product details, pricing in BDT, inventory count and official images
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 Product Title <span className="text-red-500">*</span>
               </label>
               <input
@@ -171,12 +171,12 @@ export default function AdminProductFormPage() {
                 onChange={handleChange}
                 required
                 placeholder="e.g. Samsung Galaxy A55 5G"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 Category <span className="text-red-500">*</span>
               </label>
               <select
@@ -184,7 +184,7 @@ export default function AdminProductFormPage() {
                 value={formData.categoryId}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden bg-white"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden bg-[var(--color-surface)]"
               >
                 <option value="">Select Category</option>
                 {categories.map((c) => (
@@ -194,7 +194,7 @@ export default function AdminProductFormPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 SKU / Model Number
               </label>
               <input
@@ -203,12 +203,12 @@ export default function AdminProductFormPage() {
                 value={formData.sku}
                 onChange={handleChange}
                 placeholder="e.g. SAM-A55-128"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 Price (BDT) <span className="text-red-500">*</span>
               </label>
               <input
@@ -219,12 +219,12 @@ export default function AdminProductFormPage() {
                 required
                 min="0"
                 placeholder="e.g. 49999"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 Regular / Compare Price (Optional)
               </label>
               <input
@@ -234,12 +234,12 @@ export default function AdminProductFormPage() {
                 onChange={handleChange}
                 min="0"
                 placeholder="e.g. 54999"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+              <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
                 Stock Quantity <span className="text-red-500">*</span>
               </label>
               <input
@@ -249,13 +249,13 @@ export default function AdminProductFormPage() {
                 onChange={handleChange}
                 required
                 min="0"
-                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+            <label className="block text-xs font-bold text-stone-700 uppercase mb-1.5">
               Product Description & Specifications <span className="text-red-500">*</span>
             </label>
             <textarea
@@ -265,13 +265,13 @@ export default function AdminProductFormPage() {
               onChange={handleChange}
               required
               placeholder="Highlight features, display, battery, processor, and warranty..."
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+              className="w-full px-4 py-2.5 rounded-xl border border-stone-200 text-sm focus:ring-1 focus:ring-[var(--color-ember)] focus:outline-hidden"
             />
           </div>
 
           {/* Product Images */}
-          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-2">
+          <div className="p-4 bg-stone-50 rounded-xl border border-stone-200">
+            <label className="block text-xs font-bold text-stone-700 uppercase mb-2">
               Product Images
             </label>
 
@@ -282,12 +282,12 @@ export default function AdminProductFormPage() {
                 placeholder="Paste Image URL..."
                 value={imageUrlInput}
                 onChange={(e) => setImageUrlInput(e.target.value)}
-                className="flex-1 px-4 py-2 rounded-xl border border-slate-200 text-xs bg-white focus:outline-hidden"
+                className="flex-1 px-4 py-2 rounded-xl border border-stone-200 text-xs bg-[var(--color-surface)] focus:outline-hidden"
               />
               <button
                 type="button"
                 onClick={handleAddImageUrl}
-                className="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center gap-1"
+                className="px-4 py-2 bg-stone-800 text-white rounded-xl text-xs font-bold flex items-center gap-1"
               >
                 <Plus className="w-3.5 h-3.5" /> Add URL
               </button>
@@ -295,8 +295,8 @@ export default function AdminProductFormPage() {
 
             {/* File Upload Option */}
             <div className="mb-4">
-              <label className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 rounded-xl text-xs font-semibold text-slate-700 cursor-pointer">
-                <Upload className="w-4 h-4 text-blue-600" />
+              <label className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--color-surface)] border border-stone-200 hover:bg-stone-50 rounded-xl text-xs font-semibold text-stone-700 cursor-pointer">
+                <Upload className="w-4 h-4 text-[var(--color-ember)]" />
                 {uploadingImage ? 'Uploading Image...' : 'Or Upload Local File'}
                 <input
                   type="file"
@@ -312,7 +312,7 @@ export default function AdminProductFormPage() {
             {images.length > 0 && (
               <div className="flex flex-wrap gap-3">
                 {images.map((url, i) => (
-                  <div key={i} className="relative w-20 h-20 rounded-xl border border-slate-200 overflow-hidden group">
+                  <div key={i} className="relative w-20 h-20 rounded-xl border border-stone-200 overflow-hidden group">
                     <img src={url} alt="preview" className="w-full h-full object-cover" />
                     <button
                       type="button"
@@ -340,9 +340,9 @@ export default function AdminProductFormPage() {
                 name="isActive"
                 checked={formData.isActive}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-[var(--color-ember)] rounded focus:ring-[var(--color-ember)]"
               />
-              <span className="text-xs font-bold text-slate-800">Active (Visible in Store)</span>
+              <span className="text-xs font-bold text-stone-800">Active (Visible in Store)</span>
             </label>
 
             <label className="flex items-center gap-2 cursor-pointer">
@@ -351,23 +351,23 @@ export default function AdminProductFormPage() {
                 name="isFeatured"
                 checked={formData.isFeatured}
                 onChange={handleChange}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                className="w-4 h-4 text-[var(--color-ember)] rounded focus:ring-[var(--color-ember)]"
               />
-              <span className="text-xs font-bold text-slate-800">Featured on Homepage</span>
+              <span className="text-xs font-bold text-stone-800">Featured on Homepage</span>
             </label>
           </div>
 
-          <div className="pt-6 border-t border-slate-100 flex justify-end gap-3">
+          <div className="pt-6 border-t border-stone-100 flex justify-end gap-3">
             <Link
               to="/admin/products"
-              className="px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+              className="px-5 py-2.5 rounded-xl border border-stone-200 text-xs font-bold text-stone-600 hover:bg-stone-50"
             >
               Cancel
             </Link>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-98 disabled:bg-slate-300 text-white font-bold rounded-xl text-xs transition shadow-md flex items-center gap-2"
+              className="px-6 py-2.5 bg-[var(--color-ember)] hover:bg-[var(--color-ember-strong)] active:scale-98 disabled:bg-stone-300 text-white font-bold rounded-xl text-xs transition shadow-sm flex items-center gap-2"
             >
               <Save className="w-4 h-4" />
               {loading ? 'Saving...' : isEditMode ? 'Update Product' : 'Create Product'}

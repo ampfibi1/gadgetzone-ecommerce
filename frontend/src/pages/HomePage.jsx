@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import {
   ArrowRight,
   BatteryCharging,
-  Flame,
   Headphones,
   MapPin,
   Phone,
@@ -18,16 +17,17 @@ import api from '../api/axios';
 import ProductGrid from '../components/products/ProductGrid';
 import HeroSlider from '../components/home/HeroSlider';
 import FlashSaleSection from '../components/home/FlashSaleSection';
+import SectionHeading from '../components/common/SectionHeading';
 import useCountdown from '../hooks/useCountdown';
 
 const FALLBACK_BANNERS = [
   {
     id: 'fallback-brand',
-    title: 'Authentic gadgets with official warranty.',
+    title: 'Authentic gadgets, officially warranted.',
     subtitle:
-      'Explore flagship smartphones, noise-cancelling earbuds, smartwatches and power accessories. Visit our Dhaka showroom or order online with bKash and cash on delivery.',
-    badge: 'LHQ BANGLADESH · OFFICIAL RETAILER',
-    ctaText: 'Browse all gadgets',
+      'Phones, earbuds, smartwatches and power gear from the counter at Konapara. Pay with bKash or cash on delivery.',
+    badge: 'LHQ / Dhaka',
+    ctaText: 'Browse the catalog',
     linkUrl: '/products',
     theme: 'sky',
     imageUrl: null,
@@ -36,7 +36,14 @@ const FALLBACK_BANNERS = [
 
 const pad = (value) => String(value).padStart(2, '0');
 
-function FlashSaleTeaser({ flashSale }) {
+const categoryIcons = {
+  smartphones: Smartphone,
+  earbuds: Headphones,
+  smartwatches: Watch,
+  'power-banks': BatteryCharging,
+};
+
+function CounterRail({ flashSale }) {
   const countdown = useCountdown(flashSale?.endsAt);
   const isLive = Boolean(flashSale && flashSale.products?.length && !countdown.expired);
 
@@ -49,68 +56,89 @@ function FlashSaleTeaser({ flashSale }) {
   };
 
   return (
-    <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 p-5 text-white">
-      <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-rose-500/20 blur-2xl" />
-
-      <div className="relative">
-        <div className="flex items-center justify-between gap-2">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-rose-300">
-            <Flame className="h-3.5 w-3.5" /> Flash sale
+    <aside className="flex h-full flex-col rounded-xl border border-line bg-surface p-5">
+      <div>
+        <div className="flex items-center justify-between gap-3">
+          <span className="ui-kicker">
+            <span className="ui-mark" />
+            Flash sale
           </span>
-          {isLive && (
-            <span className="rounded-full border border-rose-400/30 bg-rose-500/10 px-2 py-0.5 text-[10px] font-semibold text-rose-200">
-              {flashSale.discountPercent}% off
-            </span>
-          )}
+          {isLive && <span className="ui-tag ui-tag-accent">{flashSale.discountPercent}% off</span>}
         </div>
 
         {isLive ? (
           <>
-            <p className="mt-2 text-lg font-bold leading-snug">{flashSale.title}</p>
-            <p className="mt-1 line-clamp-2 text-[11px] text-slate-400">
+            <h3 className="mt-3 text-[18px] font-medium leading-6 tracking-[-0.01em] text-ink">
+              {flashSale.title}
+            </h3>
+            <p className="mt-1.5 line-clamp-2 text-[12px] leading-5 text-muted">
               {flashSale.subtitle || 'Limited-time prices on selected gadgets.'}
             </p>
+
+            <div className="mt-5 flex items-end justify-between gap-3">
+              <div>
+                <p className="font-mono text-[9px] text-muted">Ends in</p>
+                <p className="mt-1 font-mono text-[17px] tabular-nums text-ink">{compactCountdown}</p>
+              </div>
+              <button
+                type="button"
+                onClick={scrollToFlashSale}
+                className="ui-btn ui-btn-secondary ui-btn-sm"
+              >
+                Shop sale
+              </button>
+            </div>
           </>
         ) : (
           <>
-            <p className="mt-2 text-lg font-bold leading-snug">
+            <h3 className="mt-3 text-[18px] font-medium leading-6 tracking-[-0.01em] text-ink">
               Official warranty on every gadget
-            </p>
-            <p className="mt-1 text-[11px] text-slate-400">
-              Authentic products, nationwide delivery and bKash checkout.
-            </p>
+            </h3>
+            <div className="mt-4 space-y-2.5">
+              <p className="flex items-center gap-2 text-[11px] text-ink-soft">
+                <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-muted" />
+                1-year official warranty
+              </p>
+              <p className="flex items-center gap-2 text-[11px] text-ink-soft">
+                <Truck className="h-3.5 w-3.5 shrink-0 text-muted" />
+                Free delivery over ৳5,000
+              </p>
+              <p className="flex items-center gap-2 text-[11px] text-ink-soft">
+                <Store className="h-3.5 w-3.5 shrink-0 text-muted" />
+                Konapara showroom pickup
+              </p>
+            </div>
           </>
         )}
       </div>
 
-      <div className="relative mt-4">
-        {isLive ? (
-          <>
-            <p className="text-[10px] uppercase tracking-wider text-slate-500">Ends in</p>
-            <p className="mt-0.5 text-lg font-semibold tabular-nums">{compactCountdown}</p>
-            <button
-              type="button"
-              onClick={scrollToFlashSale}
-              className="mt-3 inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-rose-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-rose-500"
-            >
-              Shop the flash sale <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </>
-        ) : (
-          <div className="space-y-1.5 text-[11px] text-slate-300">
-            <p className="flex items-center gap-2">
-              <ShieldCheck className="h-3.5 w-3.5 shrink-0 text-sky-400" /> 1-year official warranty
-            </p>
-            <p className="flex items-center gap-2">
-              <Truck className="h-3.5 w-3.5 shrink-0 text-sky-400" /> Free delivery over ৳5,000
-            </p>
-            <p className="flex items-center gap-2">
-              <Store className="h-3.5 w-3.5 shrink-0 text-sky-400" /> Konapara showroom pickup
+      <div className="mt-auto border-t border-line pt-5">
+        <div className="flex items-start gap-3">
+          <img
+            src="/logo.jpg"
+            alt=""
+            className="h-9 w-9 shrink-0 rounded-md border border-line object-cover"
+          />
+          <div className="min-w-0">
+            <p className="text-[12px] font-medium text-ink">LHQ Bangladesh</p>
+            <p className="mt-0.5 flex items-start gap-1 text-[11px] leading-4 text-muted">
+              <MapPin className="mt-0.5 h-3 w-3 shrink-0" />
+              Konapara Shopping Complex, Dhaka
             </p>
           </div>
-        )}
+        </div>
+
+        <div className="mt-3 flex items-center justify-between font-mono text-[9px] text-muted">
+          <span>Daily 10:00–21:00</span>
+          <span>Ground floor</span>
+        </div>
+
+        <a href="tel:01348178750" className="ui-btn ui-btn-secondary ui-btn-sm mt-3 w-full">
+          <Phone className="h-3.5 w-3.5" />
+          Call the counter
+        </a>
       </div>
-    </div>
+    </aside>
   );
 }
 
@@ -156,147 +184,142 @@ export default function HomePage() {
     fetchData();
   }, []);
 
-  const getCategoryIcon = (slug) => {
-    switch (slug) {
-      case 'smartphones': return <Smartphone className="w-5 h-5" />;
-      case 'earbuds': return <Headphones className="w-5 h-5" />;
-      case 'smartwatches': return <Watch className="w-5 h-5" />;
-      case 'power-banks': return <BatteryCharging className="w-5 h-5" />;
-      default: return <Zap className="w-5 h-5" />;
-    }
-  };
-
   const visibleBanners = banners.length > 0 ? banners : FALLBACK_BANNERS;
 
   return (
-    <div className="space-y-12 pb-16 sm:space-y-14">
-      {/* Hero: admin-managed ad slider + storefront rail */}
-      <section className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8">
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-          <div className="lg:col-span-8">
+    <div className="pb-16">
+      <section className="ui-container pt-6 sm:pt-8">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.85fr)_minmax(0,1fr)]">
+          <div>
             {loading ? (
-              <div className="h-[380px] animate-pulse rounded-2xl bg-slate-200 sm:h-[390px] lg:h-[420px]" />
+              <div className="h-[540px] animate-pulse rounded-xl bg-raised sm:h-[460px] lg:h-[480px]" />
             ) : (
               <HeroSlider banners={visibleBanners} />
             )}
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
-            {/* Flash sale teaser (or trust card when no campaign is live) */}
-            <FlashSaleTeaser flashSale={flashSale} />
+          <CounterRail flashSale={flashSale} />
+        </div>
+      </section>
 
-            {/* Store & support card */}
-            <div className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
-              <div>
-                <div className="flex items-start gap-3">
-                  <img
-                    src="/logo.jpg"
-                    alt="LHQ Bangladesh"
-                    className="h-11 w-11 shrink-0 rounded-lg border border-slate-200 object-cover"
-                  />
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold text-slate-900">LHQ Bangladesh</p>
-                    <p className="mt-0.5 flex items-start gap-1 text-[11px] leading-snug text-slate-500">
-                      <MapPin className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
-                      Konapara Shopping Complex, Dhaka, Ground Floor
-                    </p>
-                  </div>
-                </div>
+      <FlashSaleSection flashSale={flashSale} loading={loading} className="mt-10 sm:mt-12" />
 
-                <div className="mt-3 grid grid-cols-2 gap-2 text-[10px] font-medium text-slate-600">
-                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5">
-                    <ShieldCheck className="h-3.5 w-3.5 text-sky-600" /> Official warranty
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5">
-                    <Truck className="h-3.5 w-3.5 text-sky-600" /> Nationwide delivery
-                  </span>
-                </div>
-              </div>
+      <section className="ui-container mt-12 sm:mt-16">
+        <SectionHeading
+          index="01 / Categories"
+          title="Shop by category"
+          description="Phones, audio, wearables and power gear, all covered by official warranty."
+          action={{ label: 'All gadgets', to: '/products' }}
+        />
 
-              <a
-                href="tel:01348178750"
-                className="mt-3 inline-flex items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-slate-800"
+        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {categories.map((category) => {
+            const Icon = categoryIcons[category.slug] || Zap;
+            return (
+              <Link
+                key={category.id}
+                to={`/products?category=${category.slug}`}
+                className="group flex flex-col justify-between gap-8 rounded-lg border border-line bg-surface p-4 transition-colors hover:bg-raised"
               >
-                <Phone className="h-3.5 w-3.5" /> 01348178750
-              </a>
+                <div className="flex items-center justify-between">
+                  <Icon className="h-[18px] w-[18px] text-muted" />
+                  {category._count?.products !== undefined && (
+                    <span className="font-mono text-[10px] text-muted">
+                      {category._count.products}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <h3 className="text-[13px] font-medium text-ink">{category.name}</h3>
+                  <p className="mt-1 line-clamp-1 text-[11px] text-muted">{category.description}</p>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="ui-container mt-12 sm:mt-16">
+        <SectionHeading
+          index="02 / Catalog"
+          title="Featured gadgets"
+          description="A short list from the counter, chosen for stock and warranty."
+          action={{ label: 'All products', to: '/products' }}
+        />
+        <div className="mt-6">
+          <ProductGrid products={featuredProducts} loading={loading} />
+        </div>
+      </section>
+
+      <section className="ui-container mt-12 sm:mt-16">
+        <div className="grid overflow-hidden rounded-xl border border-night-line bg-night md:grid-cols-[1.1fr_0.9fr]">
+          <div className="p-6 sm:p-10">
+            <div className="ui-kicker text-night-muted">
+              <span className="ui-mark" />
+              Retail showroom
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Admin-managed flash sale with live countdown */}
-      <FlashSaleSection flashSale={flashSale} loading={loading} />
-
-      {/* Featured Categories */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200">
-          <div>
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">Featured categories</h2>
-          </div>
-          <Link to="/products" className="text-sky-600 hover:text-sky-700 font-medium text-xs sm:text-sm flex items-center gap-1 transition-colors">
-            View all <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {categories.map((cat) => (
-            <Link
-              key={cat.id}
-              to={`/products?category=${cat.slug}`}
-              className="group bg-white p-5 rounded-xl border border-slate-200 hover:border-slate-300 transition-colors flex flex-col items-center text-center shadow-xs"
-            >
-              <div className="w-12 h-12 rounded-lg bg-slate-100 text-slate-700 group-hover:bg-slate-900 group-hover:text-white transition-colors flex items-center justify-center mb-3">
-                {getCategoryIcon(cat.slug)}
-              </div>
-              <h3 className="font-semibold text-slate-900 text-xs sm:text-sm mb-1 group-hover:text-sky-600 transition-colors">
-                {cat.name}
-              </h3>
-              <p className="text-xs text-slate-400 line-clamp-1">{cat.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Gadgets Grid */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6 pb-2 border-b border-slate-200">
-          <div>
-            <h2 className="text-lg sm:text-xl font-semibold text-slate-900">Featured gadgets</h2>
-          </div>
-          <Link to="/products" className="text-sky-600 hover:text-sky-700 font-medium text-xs sm:text-sm flex items-center gap-1 transition-colors">
-            See all products <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-
-        <ProductGrid products={featuredProducts} loading={loading} />
-      </section>
-
-      {/* Store Visit & Support Banner */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-slate-950 rounded-2xl p-8 sm:p-10 text-white border border-slate-800">
-          <div className="max-w-2xl space-y-3">
-            <span className="inline-block px-2.5 py-0.5 rounded bg-slate-900 text-sky-400 text-xs font-medium border border-slate-800">
-              Retail Showroom
-            </span>
-            <h3 className="text-xl sm:text-2xl font-semibold text-white">
-              Konapara Shopping Complex, Dhaka, Ground Floor
-            </h3>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-              Prefer testing devices before purchasing? Visit the <strong>LHQ Bangladesh</strong> retail store or order online with instant bKash checkout and cash on delivery. Hotline: <strong>01348178750</strong> • Email: <strong>lhqbangladesh@gmail.com</strong>.
+            <h2 className="mt-3 max-w-md text-[28px] font-medium leading-[1.08] tracking-[-0.02em] text-night-text sm:text-[34px]">
+              Test it at the counter. Take it home.
+            </h2>
+            <p className="mt-4 max-w-lg text-[13px] leading-6 text-night-muted">
+              The showroom is on the ground floor at Konapara Shopping Complex. Compare the
+              devices in person, then pay with bKash or cash on delivery.
             </p>
-            <div className="pt-2 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/products"
-                className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium rounded-lg text-xs sm:text-sm transition-colors inline-flex items-center gap-1.5"
+                className="ui-btn ui-btn-lg bg-night-text text-night hover:bg-white"
               >
-                Browse catalog <ArrowRight className="w-3.5 h-3.5" />
+                Browse the catalog
+                <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="tel:01348178750"
-                className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 font-medium rounded-lg text-xs sm:text-sm transition-colors border border-slate-800 inline-flex items-center gap-1.5"
+                className="ui-btn ui-btn-lg border-night-line text-night-text hover:bg-night-soft"
               >
-                <Phone className="w-3.5 h-3.5 text-sky-400" /> 01348178750
+                <Phone className="h-4 w-4" />
+                01348178750
               </a>
+            </div>
+          </div>
+
+          <div className="border-t border-night-line p-6 sm:p-8 md:border-l md:border-t-0">
+            <div className="rounded-lg border border-night-line bg-night-soft p-5">
+              <p className="font-mono text-[9px] text-night-muted">Store details</p>
+              <p className="mt-2 text-[16px] font-medium text-night-text">LHQ Bangladesh</p>
+              <p className="mt-1 text-[12px] leading-5 text-night-muted">
+                Konapara Shopping Complex
+                <br />
+                Dhaka, Ground Floor
+              </p>
+
+              <div className="my-4 border-t border-night-line" />
+
+              <dl className="space-y-2 font-mono text-[10px]">
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-night-muted">Open</dt>
+                  <dd className="text-night-text">10:00–21:00</dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-night-muted">Phone</dt>
+                  <dd>
+                    <a href="tel:01348178750" className="text-night-text hover:text-white">
+                      01348178750
+                    </a>
+                  </dd>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <dt className="text-night-muted">Email</dt>
+                  <dd>
+                    <a
+                      href="mailto:lhqbangladesh@gmail.com"
+                      className="text-night-text hover:text-white"
+                    >
+                      lhqbangladesh@gmail.com
+                    </a>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>

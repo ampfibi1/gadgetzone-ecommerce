@@ -5,14 +5,14 @@ import { Home } from 'lucide-react';
 export default function NotFoundPage() {
   return (
     <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16 text-center">
-      <h1 className="text-8xl font-black text-blue-600 mb-2">404</h1>
-      <h2 className="text-2xl font-bold text-slate-800 mb-2">Page Not Found</h2>
-      <p className="text-sm text-slate-500 max-w-sm mb-8">
+      <h1 className="text-8xl font-medium text-ember mb-2">404</h1>
+      <h2 className="text-2xl font-medium text-ink-soft mb-2">Page Not Found</h2>
+      <p className="text-sm text-muted max-w-sm mb-8">
         The gadget or page you are looking for does not exist or has been relocated.
       </p>
       <Link
         to="/"
-        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 text-white rounded-xl text-sm font-bold shadow-md transition"
+        className="inline-flex items-center gap-2 px-6 py-3 bg-ink hover:bg-ink-soft text-paper rounded-xl text-sm font-medium transition-colors"
       >
         <Home className="w-4 h-4" /> Back to LHQ BANGLADESH
       </Link>

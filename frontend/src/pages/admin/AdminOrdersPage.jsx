@@ -54,17 +54,17 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="ui-container py-8">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-stone-500 hover:text-stone-800 transition-colors">
           <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-stone-200 gap-4 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Order management</h1>
-          <p className="text-xs text-slate-500 mt-0.5">Review orders, update fulfillment status, and track payments</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-stone-900 tracking-tight">Order management</h1>
+          <p className="text-xs text-stone-500 mt-0.5">Review orders, update fulfillment status, and track payments</p>
         </div>
 
         {/* Status Filter */}
@@ -72,7 +72,7 @@ export default function AdminOrdersPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 focus:outline-hidden"
+            className="px-3 py-2 bg-[var(--color-surface)] border border-stone-200 rounded-lg text-xs font-medium text-stone-700 focus:outline-hidden"
           >
             <option value="">All statuses</option>
             {STATUSES.map((s) => (
@@ -86,14 +86,14 @@ export default function AdminOrdersPage() {
       {loading ? (
         <LoadingSpinner />
       ) : orders.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400 text-xs">
+        <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200 p-10 text-center text-stone-400 text-xs">
           No orders found matching criteria.
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs">
+        <div className="bg-[var(--color-surface)] rounded-xl border border-stone-200/80 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+              <thead className="bg-stone-50 text-stone-600 font-medium border-b border-stone-200">
                 <tr>
                   <th className="px-6 py-4">Order Number</th>
                   <th className="px-6 py-4">Customer Type & Name</th>
@@ -103,42 +103,42 @@ export default function AdminOrdersPage() {
                   <th className="px-6 py-4">Update Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 text-slate-800">
+              <tbody className="divide-y divide-stone-100 text-stone-800">
                 {orders.map((ord) => (
-                  <tr key={ord.id} className="hover:bg-slate-50/50">
-                    <td className="px-6 py-4 font-mono font-bold text-blue-600">
+                  <tr key={ord.id} className="hover:bg-stone-50/50">
+                    <td className="px-6 py-4 font-mono font-bold text-[var(--color-ember)]">
                       {ord.orderNumber}
-                      <span className="block text-[10px] text-slate-400 font-sans font-normal mt-0.5">
+                      <span className="block text-[10px] text-stone-400 font-sans font-normal mt-0.5">
                         {new Date(ord.createdAt).toLocaleDateString('en-BD')}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <p className="font-bold text-slate-900">
+                      <p className="font-bold text-stone-900">
                         {ord.user ? ord.user.name : (ord.guestName || 'Guest Visitor')}
                       </p>
                       <span className={`inline-block text-[9px] font-bold px-2 py-0.5 rounded-full mt-0.5 ${
-                        ord.userId ? 'bg-blue-50 text-blue-700' : 'bg-slate-100 text-slate-600'
+                        ord.userId ? 'bg-blue-50 text-blue-700' : 'bg-stone-100 text-stone-600'
                       }`}>
                         {ord.userId ? 'Account Customer' : 'Guest Checkout'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-medium text-slate-700">
+                    <td className="px-6 py-4 font-medium text-stone-700">
                       {ord.shippingCity}
                     </td>
                     <td className="px-6 py-4 font-semibold">
                       <span className="block">{ord.payment?.method || 'N/A'}</span>
-                      <span className="text-[10px] text-slate-400 font-normal">
+                      <span className="text-[10px] text-stone-400 font-normal">
                         Status: {ord.payment?.status || 'PENDING'}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-black text-slate-900">
+                    <td className="px-6 py-4 font-semibold text-stone-900">
                       ৳{ord.total?.toLocaleString('en-BD')}
                     </td>
                     <td className="px-6 py-4">
                       <select
                         value={ord.status}
                         onChange={(e) => handleStatusChange(ord.id, e.target.value)}
-                        className="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold bg-white focus:outline-hidden"
+                        className="px-2.5 py-1.5 rounded-lg border border-stone-200 text-xs font-bold bg-[var(--color-surface)] focus:outline-hidden"
                       >
                         {STATUSES.map((s) => (
                           <option key={s} value={s}>{s}</option>
@@ -151,7 +151,7 @@ export default function AdminOrdersPage() {
             </table>
           </div>
 
-          <div className="p-4 border-t border-slate-100">
+          <div className="p-4 border-t border-stone-100">
             <Pagination
               currentPage={pagination.page}
               totalPages={pagination.pages}
