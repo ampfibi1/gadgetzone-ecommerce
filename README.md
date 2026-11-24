@@ -47,6 +47,8 @@ The system strictly enforces permissions on the backend API layer using JWT auth
 | Create / Edit / Deactivate Products | ❌ | ❌ | ✅ |
 | Upload & Manage Product Images | ❌ | ❌ | ✅ |
 | Create / Edit Product Categories | ❌ | ❌ | ✅ |
+| Create / Manage Hero Ad Banners | ❌ | ❌ | ✅ |
+| Create / Manage Flash Sale Campaigns | ❌ | ❌ | ✅ |
 | Update Order Fulfillment Status | ❌ | ❌ | ✅ |
 | View Customer Account List | ❌ | ❌ | ✅ |
 
@@ -62,6 +64,8 @@ Guests are **never** forced to create an account or log in to complete a purchas
 - **Contact Channels:** Phone: 01348178750 | Email: lhqbangladesh@gmail.com.
 - **Product Categories:** Smartphones, Earbuds, Smartwatches, Power Banks.
 - **BDT Currency:** Formatted as `৳49,999` with Bangladesh localized number formatting.
+- **Admin-Managed Hero Ads:** Auto-rotating storefront slider (arrows, dots, swipe and keyboard navigation) whose slides, artwork, badge, CTA, colour theme and display order are created from the admin portal.
+- **Flash Sales:** Admin-created countdown campaigns with a configurable discount percentage and hand-picked products, rendered on the home page as a live discounted product rail with stock indicators.
 - **Guest Checkout Flow:** Product → Cart → Checkout Details → bKash / COD Selection → Instant Order Confirmation with live Order Reference (`GZ-YYYYMMDD-XXXXXX`).
 - **Customer Portal:** Dedicated dashboard, profile address manager, and personal order history.
 - **Admin Command Center:**
@@ -69,6 +73,8 @@ Guests are **never** forced to create an account or log in to complete a purchas
   - Product catalog CRUD with image upload and stock management.
   - Order status manager with delivery lifecycle transitions.
   - Category manager and customer directory.
+  - Hero ad banner manager (create, reorder, publish / hide, upload artwork).
+  - Flash sale campaign manager (schedule, discount, product selection, pause / activate).
 
 ---
 
@@ -98,11 +104,12 @@ Guests are **never** forced to create an account or log in to complete a purchas
 Gadget website/
 ├── backend/
 │   ├── prisma/
-│   │   ├── schema.prisma         # Data models: User, Product, Category, Order, Payment
-│   │   └── seed.js               # Database seeder with 14+ BD gadget products
+│   │   ├── schema.prisma         # Data models: User, Product, Category, Order, Payment, Banner, FlashSale
+│   │   ├── seed.js               # Database seeder with 14+ BD gadget products
+│   │   └── promotions.js         # Default hero ad banners and flash sale seeding
 │   ├── src/
 │   │   ├── config/               # Prisma client & Cloudinary configurations
-│   │   ├── controllers/          # Business logic (Auth, Product, Category, Order, Payment, Admin)
+│   │   ├── controllers/          # Business logic (Auth, Product, Category, Order, Payment, Admin, Banner, FlashSale)
 │   │   ├── middleware/           # Auth (JWT verification & RBAC), Upload (Multer), Validation
 │   │   ├── routes/               # Modular Express routers
 │   │   ├── utils/                # JWT helpers, order number generator, slugifier, BDT formatter
@@ -113,7 +120,8 @@ Gadget website/
 ├── frontend/
 │   ├── src/
 │   │   ├── api/axios.js          # Centralized Axios instance with interceptors
-│   │   ├── components/           # Modular UI: layout, products, cart, common, auth guards
+│   │   ├── components/           # Modular UI: layout, home promotions, products, cart, common, auth guards
+│   │   ├── hooks/                # Shared countdown ticker for flash sale timers
 │   │   ├── pages/                # Public, Customer, and Admin view controllers
 │   │   ├── stores/               # Zustand stores (authStore, cartStore)
 │   │   ├── App.jsx               # Route definitions
@@ -252,6 +260,22 @@ The database schema is fully normalized and managed via Prisma ORM:
 - **`orders`**: Unique order number, optional user ID (guest checkout support), shipping address, city, subtotal, shipping fee, total, status enum (`PENDING`, `CONFIRMED`, `PROCESSING`, `SHIPPED`, `DELIVERED`, `CANCELLED`).
 - **`order_items`**: Line items linked to orders and products with historical price snapshotting.
 - **`payments`**: Payment method (`BKASH`, `COD`), status (`PENDING`, `COMPLETED`, `FAILED`), transaction IDs.
+- **`banners`**: Admin-created hero ad slides — headline, subtitle, badge, CTA text/link, optional artwork, colour theme, display order and active toggle.
+- **`flash_sales`**: Countdown campaigns — title, subtitle, discount percentage, start/end timestamps and active toggle.
+- **`flash_sale_products`**: Join table selecting which products belong to each flash sale, with cascade cleanup.
+
+### Storefront Promotions API
+
+| Method | Endpoint | Access | Purpose |
+| :--- | :--- | :--- | :--- |
+| `GET` | `/api/banners` | Public | Active hero slides ordered for the storefront |
+| `GET` | `/api/banners/admin/all` | Admin | Every banner, including hidden drafts |
+| `POST` / `PUT` / `DELETE` | `/api/banners`, `/api/banners/:id` | Admin | Create, reorder, publish or delete ad slides |
+| `GET` | `/api/flash-sales/active` | Public | The currently live campaign with discounted product prices |
+| `GET` | `/api/flash-sales/admin/all` | Admin | All campaigns and their selected products |
+| `POST` / `PUT` / `DELETE` | `/api/flash-sales`, `/api/flash-sales/:id` | Admin | Schedule, edit, pause or delete flash sales |
+
+Default hero banners and a starter flash sale are seeded automatically by `prisma/seed.js` and by the startup bootstrap in `src/start.js` whenever the promotion tables are empty, so a fresh deployment renders the new storefront immediately. Flash sale pricing is re-validated on the server when an order is created, so the discounted price is always honoured even if a client cart is stale.
 
 ---
 
@@ -340,6 +364,6 @@ The repository includes a ready-to-deploy `render.yaml` blueprint.
 ### Recommended Next Features for v2.0
 - SMS order notifications via Bangladesh SMS gateways (e.g., SSL Wireless / Greenweb).
 - Nagad and Rocket mobile banking gateways alongside bKash.
-- Automated coupon codes and promotional flash sales.
+- Automated coupon codes and reusable discount vouchers.
 - Customer product review submission and star ratings.
 - Automated email receipts via Resend or SendGrid.

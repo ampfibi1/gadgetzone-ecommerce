@@ -68,19 +68,19 @@ export default function Header() {
 
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-6">
+        <div className="flex items-center justify-between h-20 gap-2 sm:gap-6">
           {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-3 shrink-0">
+          <Link to="/" className="flex items-center gap-2 sm:gap-3 shrink-0">
             <img
               src="/logo.jpg"
               alt="LHQ Bangladesh"
-              className="w-11 h-11 rounded-lg object-cover border border-slate-700"
+              className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg object-cover border border-slate-700"
             />
             <div className="flex flex-col">
-              <span className="font-bold text-lg sm:text-xl tracking-tight text-white leading-none">
+              <span className="font-bold text-base sm:text-xl tracking-tight text-white leading-none whitespace-nowrap">
                 LHQ <span className="text-sky-400">Bangladesh</span>
               </span>
-              <span className="text-[11px] text-slate-400 font-medium mt-1">
+              <span className="hidden sm:block text-[11px] text-slate-400 font-medium mt-1">
                 Authentic retail & online store
               </span>
             </div>
@@ -107,7 +107,7 @@ export default function Header() {
           </form>
 
           {/* User & Cart Actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             {/* Quick Hotline Tablet/Desktop */}
             <a
               href="tel:01348178750"
@@ -123,7 +123,7 @@ export default function Header() {
             {/* Shopping Cart Button */}
             <Link
               to="/cart"
-              className="relative p-2.5 text-slate-200 hover:text-white rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center gap-2"
+              className="relative p-2 sm:p-2.5 text-slate-200 hover:text-white rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center gap-2"
               aria-label="Shopping Cart"
             >
               <ShoppingCart className="w-5 h-5 text-sky-400" />
@@ -203,7 +203,7 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
+                  className="px-2 sm:px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors whitespace-nowrap"
                 >
                   Sign in
                 </Link>
@@ -219,7 +219,7 @@ export default function Header() {
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
+              className="lg:hidden p-1.5 sm:p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}

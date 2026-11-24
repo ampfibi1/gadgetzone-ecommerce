@@ -14,6 +14,8 @@ const orderRoutes = require('./routes/order.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const imageRoutes = require('./routes/image.routes');
 const adminRoutes = require('./routes/admin.routes');
+const bannerRoutes = require('./routes/banner.routes');
+const flashSaleRoutes = require('./routes/flashsale.routes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -80,6 +82,8 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/images', imageRoutes);
+app.use('/api/banners', bannerRoutes);
+app.use('/api/flash-sales', flashSaleRoutes);
 app.use('/api/admin', adminRoutes);
 
 // 404 Handler

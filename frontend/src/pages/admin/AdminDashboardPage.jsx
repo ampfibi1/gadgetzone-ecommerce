@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, ShoppingBag, Users, DollarSign, Plus, ClipboardList, Tag } from 'lucide-react';
+import { Package, ShoppingBag, Users, DollarSign, Plus, ClipboardList, Tag, Image, Flame } from 'lucide-react';
 import api from '../../api/axios';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
@@ -105,7 +105,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Admin Quick Navigation Links (Icons instead of emoji) */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
         <Link
           to="/admin/products"
           className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
@@ -123,6 +123,18 @@ export default function AdminDashboardPage() {
           className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
           <Tag className="w-4 h-4 text-sky-600" /> Categories
+        </Link>
+        <Link
+          to="/admin/banners"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
+        >
+          <Image className="w-4 h-4 text-sky-600" /> Hero ads
+        </Link>
+        <Link
+          to="/admin/flash-sales"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
+        >
+          <Flame className="w-4 h-4 text-rose-500" /> Flash sales
         </Link>
         <Link
           to="/admin/customers"

@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+const { seedPromotions } = require('./promotions');
 require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 
 const prisma = new PrismaClient();
@@ -71,7 +72,7 @@ async function main() {
       name: 'Power Banks',
       slug: 'power-banks',
       description: 'Fast charging high capacity portable power banks and chargers',
-      image: 'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=600&auto=format&fit=crop&q=80',
+      image: 'https://images.pexels.com/photos/34338614/pexels-photo-34338614.jpeg?auto=compress&cs=tinysrgb&w=600',
     },
   ];
 
@@ -128,7 +129,7 @@ async function main() {
       categoryId: categories['smartphones'].id,
       isFeatured: true,
       images: [
-        'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&auto=format&fit=crop&q=80',
+        'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&cs=tinysrgb&w=600',
       ],
     },
     {
@@ -260,7 +261,7 @@ async function main() {
       categoryId: categories['power-banks'].id,
       isFeatured: true,
       images: [
-        'https://images.unsplash.com/photo-1609592424109-dd9892f1b177?w=600&auto=format&fit=crop&q=80',
+        'https://images.pexels.com/photos/30845149/pexels-photo-30845149.jpeg?auto=compress&cs=tinysrgb&w=600',
       ],
     },
     {
@@ -288,7 +289,7 @@ async function main() {
       categoryId: categories['power-banks'].id,
       isFeatured: true,
       images: [
-        'https://images.unsplash.com/photo-1622445262464-84b1456045b6?w=600&auto=format&fit=crop&q=80',
+        'https://images.pexels.com/photos/19495448/pexels-photo-19495448.jpeg?auto=compress&cs=tinysrgb&w=600',
       ],
     },
   ];
@@ -317,6 +318,9 @@ async function main() {
       });
     }
   }
+
+  // 4. Seed storefront promotions (admin-managed hero ads and flash sale)
+  await seedPromotions(prisma);
 
   console.log('🎉 Seeding completed successfully!');
 }

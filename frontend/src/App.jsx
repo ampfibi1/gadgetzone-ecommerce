@@ -30,6 +30,8 @@ import AdminProductFormPage from './pages/admin/AdminProductFormPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
 import AdminCategoriesPage from './pages/admin/AdminCategoriesPage';
 import AdminCustomersPage from './pages/admin/AdminCustomersPage';
+import AdminBannersPage from './pages/admin/AdminBannersPage';
+import AdminFlashSalePage from './pages/admin/AdminFlashSalePage';
 
 export default function App() {
   return (
@@ -145,6 +147,22 @@ export default function App() {
             element={
               <AdminRoute>
                 <AdminCategoriesPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/banners"
+            element={
+              <AdminRoute>
+                <AdminBannersPage />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/flash-sales"
+            element={
+              <AdminRoute>
+                <AdminFlashSalePage />
               </AdminRoute>
             }
           />

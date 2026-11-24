@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-const { generateOrderNumber, generateSlug, formatPrice, paginate } = require('../src/utils/helpers');
+const { generateOrderNumber, generateSlug, formatPrice, paginate, calculateFlashPrice } = require('../src/utils/helpers');
 const { generateAccessToken, verifyAccessToken } = require('../src/utils/jwt');
 
 describe('Helper Utilities', () => {
@@ -27,6 +27,12 @@ describe('Helper Utilities', () => {
     const p2 = paginate(3, 15);
     expect(p2.skip).toBe(30);
     expect(p2.take).toBe(15);
+  });
+
+  it('should calculate a rounded flash sale price', () => {
+    expect(calculateFlashPrice(49999, 20)).toBe(39999);
+    expect(calculateFlashPrice(999, 33)).toBe(669);
+    expect(calculateFlashPrice(1000, 0)).toBe(1000);
   });
 });
 

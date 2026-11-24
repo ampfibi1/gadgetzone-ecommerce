@@ -1,5 +1,5 @@
 const prisma = require('../config/db');
-const { generateOrderNumber, paginate } = require('../utils/helpers');
+const { generateOrderNumber, paginate, calculateFlashPrice } = require('../utils/helpers');
 
 const createOrder = async (req, res) => {
   try {
@@ -15,6 +15,20 @@ const createOrder = async (req, res) => {
       return res.status(400).json({ success: false, message: 'One or more products not found or unavailable' });
     }
 
+    // Honour the live flash sale price for any product included in the campaign
+    const now = new Date();
+    const activeFlashSale = await prisma.flashSale.findFirst({
+      where: { isActive: true, startsAt: { lte: now }, endsAt: { gte: now } },
+      select: {
+        discountPercent: true,
+        products: { select: { productId: true } },
+      },
+      orderBy: { endsAt: 'asc' },
+    });
+    const flashProductIds = new Set(
+      (activeFlashSale?.products || []).map((item) => item.productId)
+    );
+
     // Check stock and build order items
     const orderItems = [];
     let subtotal = 0;
@@ -28,12 +42,15 @@ const createOrder = async (req, res) => {
         });
       }
 
-      const itemTotal = product.price * item.quantity;
+      const unitPrice = activeFlashSale && flashProductIds.has(product.id)
+        ? calculateFlashPrice(product.price, activeFlashSale.discountPercent)
+        : product.price;
+      const itemTotal = unitPrice * item.quantity;
       subtotal += itemTotal;
       orderItems.push({
         productId: product.id,
         name: product.name,
-        price: product.price,
+        price: unitPrice,
         quantity: item.quantity,
         total: itemTotal,
       });

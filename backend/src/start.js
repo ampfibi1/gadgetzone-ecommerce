@@ -2,6 +2,7 @@ const { execSync } = require('child_process');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const prisma = require('./config/db');
+const { seedPromotions } = require('../prisma/promotions');
 
 async function waitForDatabase(retries = 10, delay = 3000) {
   for (let i = 1; i <= retries; i++) {
@@ -96,6 +97,13 @@ async function start() {
         }
       } else {
         console.log(`📦 Catalog contains ${count} active products.`);
+      }
+
+      // 4. Ensure storefront promotions exist (hero ad banners + flash sale)
+      try {
+        await seedPromotions(prisma);
+      } catch (promoError) {
+        console.error('⚠️ Promotion seed error:', promoError.message);
       }
     } catch (seedError) {
       console.error('⚠️ User verification / seed error:', seedError);

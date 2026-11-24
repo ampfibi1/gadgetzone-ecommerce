@@ -88,8 +88,58 @@ model Product {
   images      ProductImage[]
   orderItems  OrderItem[]
   reviews     Review[]
+  flashSaleItems FlashSaleProduct[]
 
   @@map("products")
+}
+
+// Admin-managed promotional slides shown in the storefront hero slider.
+// `theme` selects a built-in gradient so ads work with or without artwork.
+model Banner {
+  id        String   @id @default(uuid())
+  title     String
+  subtitle  String?
+  badge     String?
+  ctaText   String?
+  linkUrl   String?
+  imageUrl  String?
+  theme     String   @default("sky")
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("banners")
+}
+
+// Admin-managed discounted campaign with a countdown and selected products.
+model FlashSale {
+  id              String   @id @default(uuid())
+  title           String
+  subtitle        String?
+  discountPercent Int      @default(0)
+  startsAt        DateTime @default(now())
+  endsAt          DateTime
+  isActive        Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  products        FlashSaleProduct[]
+
+  @@map("flash_sales")
+}
+
+model FlashSaleProduct {
+  id          String   @id @default(uuid())
+  flashSaleId String
+  productId   String
+  createdAt   DateTime @default(now())
+
+  flashSale   FlashSale @relation(fields: [flashSaleId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([flashSaleId, productId])
+  @@map("flash_sale_products")
 }
 
 model ProductImage {
