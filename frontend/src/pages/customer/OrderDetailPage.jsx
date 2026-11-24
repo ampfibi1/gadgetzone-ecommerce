@@ -31,29 +31,29 @@ export default function OrderDetailPage() {
   if (!order) return null;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-6">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-4">
         <Link
           to="/account/orders"
-          className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-blue-600 transition"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to My Orders
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to orders
         </Link>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 shadow-xs space-y-8">
+      <div className="bg-white rounded-xl border border-slate-200/90 p-5 sm:p-8 shadow-xs space-y-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-100 gap-4">
           <div>
-            <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">Order Reference</span>
-            <h1 className="text-2xl font-black text-slate-900 font-mono mt-0.5">{order.orderNumber}</h1>
+            <span className="text-[11px] text-slate-400 font-medium uppercase tracking-wider">Order reference</span>
+            <h1 className="text-xl font-bold text-slate-900 font-mono mt-0.5">{order.orderNumber}</h1>
             <p className="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
+              <Calendar className="w-3.5 h-3.5 text-slate-400" />
               Placed on {new Date(order.createdAt).toLocaleDateString('en-BD', { dateStyle: 'long' })}
             </p>
           </div>
           <div className="text-left sm:text-right">
-            <span className="inline-block px-3 py-1 text-xs font-bold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+            <span className="inline-block px-2.5 py-0.5 text-xs font-medium rounded bg-slate-100 text-slate-700 border border-slate-200">
               Status: {order.status}
             </span>
           </div>
@@ -61,19 +61,19 @@ export default function OrderDetailPage() {
 
         {/* Items List */}
         <div>
-          <h3 className="font-bold text-base text-slate-900 mb-4 flex items-center gap-2">
-            <Package className="w-4 h-4 text-blue-600" /> Purchased Items
+          <h3 className="font-semibold text-sm text-slate-900 mb-3 flex items-center gap-2">
+            <Package className="w-4 h-4 text-sky-600" /> Purchased items
           </h3>
-          <div className="divide-y divide-slate-100 border border-slate-100 rounded-2xl overflow-hidden">
+          <div className="divide-y divide-slate-100 border border-slate-200 rounded-lg overflow-hidden">
             {order.items?.map((item) => (
-              <div key={item.id} className="p-4 flex items-center justify-between gap-4 text-xs">
+              <div key={item.id} className="p-3.5 flex items-center justify-between gap-4 text-xs">
                 <div>
-                  <p className="font-bold text-slate-900 text-sm">{item.name}</p>
+                  <p className="font-semibold text-slate-900 text-xs sm:text-sm">{item.name}</p>
                   <p className="text-slate-500 mt-0.5">
-                    Unit Price: ৳{item.price.toLocaleString('en-BD')} | Quantity: {item.quantity}
+                    Unit price: ৳{item.price.toLocaleString('en-BD')} | Quantity: {item.quantity}
                   </p>
                 </div>
-                <span className="font-black text-slate-900 text-sm">
+                <span className="font-semibold text-slate-900 text-xs sm:text-sm tabular-nums">
                   ৳{item.total.toLocaleString('en-BD')}
                 </span>
               </div>
@@ -82,10 +82,10 @@ export default function OrderDetailPage() {
         </div>
 
         {/* Pricing Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 space-y-3 text-xs">
-            <h4 className="font-bold text-slate-900 text-sm mb-2 flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-blue-600" /> Delivery Address
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <div className="bg-slate-50 rounded-lg p-5 border border-slate-200/80 space-y-2 text-xs">
+            <h4 className="font-semibold text-slate-900 text-xs mb-1.5 flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-sky-600" /> Delivery address
             </h4>
             <p className="font-medium text-slate-800 leading-relaxed">{order.shippingAddress}</p>
             <p className="text-slate-600">{order.shippingCity} {order.shippingZip ? `(${order.shippingZip})` : ''}</p>
@@ -94,9 +94,9 @@ export default function OrderDetailPage() {
             )}
           </div>
 
-          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 space-y-2.5 text-xs">
-            <h4 className="font-bold text-slate-900 text-sm mb-3 flex items-center gap-1.5">
-              <CreditCard className="w-4 h-4 text-blue-600" /> Payment & Charges
+          <div className="bg-slate-50 rounded-lg p-5 border border-slate-200/80 space-y-2 text-xs">
+            <h4 className="font-semibold text-slate-900 text-xs mb-2 flex items-center gap-1.5">
+              <CreditCard className="w-3.5 h-3.5 text-sky-600" /> Payment & charges
             </h4>
             <div className="flex justify-between text-slate-600">
               <span>Payment Method:</span>

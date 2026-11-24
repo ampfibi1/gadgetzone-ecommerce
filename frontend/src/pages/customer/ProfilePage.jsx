@@ -28,30 +28,30 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-xs">
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight mb-2">My Profile & Address</h1>
-        <p className="text-xs text-slate-500 mb-8">
-          Update your contact details and default delivery destination
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-8 shadow-xs">
+        <h1 className="text-xl font-bold text-slate-900 tracking-tight mb-1">Profile & delivery address</h1>
+        <p className="text-xs text-slate-500 mb-6">
+          Update your contact details and default delivery destination in Bangladesh
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Email Address (Account ID)
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Email address (Account ID)
             </label>
             <input
               type="email"
               value={user?.email || ''}
               disabled
-              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-100 text-slate-500 text-sm cursor-not-allowed"
+              className="w-full px-3.5 py-2 rounded-lg border border-slate-200 bg-slate-50 text-slate-500 text-xs sm:text-sm cursor-not-allowed"
             />
             <p className="text-[11px] text-slate-400 mt-1">Email address cannot be changed.</p>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Full Name
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Full name
             </label>
             <div className="relative">
               <input
@@ -60,15 +60,15 @@ export default function ProfilePage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-200 text-xs sm:text-sm focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
               />
-              <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Contact Phone Number
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Contact phone number
             </label>
             <div className="relative">
               <input
@@ -76,16 +76,16 @@ export default function ProfilePage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+880 1712 345678"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                placeholder="01712345678"
+                className="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-200 text-xs sm:text-sm focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
               />
               <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-              Delivery Address (Bangladesh)
+            <label className="block text-xs font-medium text-slate-700 mb-1">
+              Delivery address (Bangladesh)
             </label>
             <div className="relative">
               <textarea
@@ -94,20 +94,20 @@ export default function ProfilePage() {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="House 42, Road 7, Uttara, Dhaka"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+                className="w-full pl-9 pr-3.5 py-2 rounded-lg border border-slate-200 text-xs sm:text-sm focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
               />
-              <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-4" />
+              <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-100 flex justify-end">
+          <div className="pt-3 border-t border-slate-100 flex justify-end">
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-98 disabled:bg-slate-300 text-white font-bold rounded-xl text-sm transition shadow-md flex items-center gap-2"
+              className="px-4 py-2 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-medium rounded-lg text-xs sm:text-sm transition-colors flex items-center gap-1.5"
             >
               <Save className="w-4 h-4" />
-              {loading ? 'Saving...' : 'Save Changes'}
+              {loading ? 'Saving...' : 'Save changes'}
             </button>
           </div>
         </form>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Filter, SlidersHorizontal, Search, X } from 'lucide-react';
+import { SlidersHorizontal } from 'lucide-react';
 import api from '../api/axios';
 import ProductGrid from '../components/products/ProductGrid';
 import Pagination from '../components/common/Pagination';
@@ -72,24 +72,24 @@ export default function ProductsPage() {
       {/* Header & Title */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
             {currentCategory
               ? `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1).replace('-', ' ')}`
               : currentSearch
               ? `Search results for "${currentSearch}"`
-              : 'All Gadgets'}
+              : 'All gadgets'}
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Showing {pagination.total} genuine tech products in Bangladesh
           </p>
         </div>
 
-        {/* Sort & Search Controls */}
+        {/* Sort Controls */}
         <div className="flex flex-wrap items-center gap-3">
           <select
             value={currentSort}
             onChange={(e) => updateFilter('sort', e.target.value)}
-            className="bg-white border border-slate-200 text-sm rounded-xl px-3.5 py-2 text-slate-700 font-medium focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+            className="bg-white border border-slate-200 text-xs rounded-lg px-3 py-2 text-slate-700 font-medium focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
           >
             <option value="">Sort by: Newest</option>
             <option value="price_asc">Price: Low to High</option>
@@ -103,48 +103,50 @@ export default function ProductsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {/* Sidebar Filters */}
         <aside className="lg:col-span-1 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs">
+          <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs">
             <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
-              <h3 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
-                <SlidersHorizontal className="w-4 h-4 text-blue-600" /> Filter Gadgets
+              <h3 className="font-semibold text-slate-900 flex items-center gap-2 text-xs">
+                <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" /> Filter gadgets
               </h3>
               {(currentCategory || currentSearch || currentSort) && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-xs font-semibold text-blue-600 hover:text-blue-700"
+                  className="text-xs font-medium text-sky-600 hover:text-sky-700"
                 >
-                  Clear All
+                  Clear all
                 </button>
               )}
             </div>
 
             {/* Categories */}
-            <div className="mb-6">
-              <h4 className="font-semibold text-xs text-slate-500 uppercase tracking-wider mb-3">Categories</h4>
-              <div className="space-y-1.5">
+            <div>
+              <h4 className="font-medium text-[11px] text-slate-400 mb-2">Categories</h4>
+              <div className="space-y-1">
                 <button
                   onClick={() => updateFilter('category', '')}
-                  className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition ${
+                  className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     !currentCategory
-                      ? 'bg-blue-50 text-blue-700'
+                      ? 'bg-slate-900 text-white'
                       : 'text-slate-600 hover:bg-slate-50'
                   }`}
                 >
-                  All Categories
+                  All categories
                 </button>
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => updateFilter('category', cat.slug)}
-                    className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold transition flex items-center justify-between ${
+                    className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
                       currentCategory === cat.slug
-                        ? 'bg-blue-50 text-blue-700'
+                        ? 'bg-slate-900 text-white'
                         : 'text-slate-600 hover:bg-slate-50'
                     }`}
                   >
                     <span>{cat.name}</span>
                     {cat._count?.products !== undefined && (
-                      <span className="text-[10px] text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded tabular-nums ${
+                        currentCategory === cat.slug ? 'bg-slate-800 text-slate-200' : 'bg-slate-100 text-slate-500'
+                      }`}>
                         {cat._count.products}
                       </span>
                     )}

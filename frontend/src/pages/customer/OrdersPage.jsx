@@ -43,27 +43,27 @@ export default function CustomerOrdersPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-8 pb-4 border-b border-slate-200">
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight">My Order History</h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Track and review all purchases placed under your account
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mb-6 pb-4 border-b border-slate-200">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Order history</h1>
+        <p className="text-xs text-slate-500 mt-0.5">
+          Review all purchases placed under your customer account
         </p>
       </div>
 
       {loading ? (
         <LoadingSpinner />
       ) : orders.length === 0 ? (
-        <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md mx-auto">
-          <Package className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 className="font-bold text-slate-800 text-base mb-1">No Orders Found</h3>
-          <p className="text-xs text-slate-500 mb-6">You haven't made any purchases yet.</p>
-          <Link to="/products" className="px-5 py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold">
-            Start Shopping
+        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center max-w-md mx-auto">
+          <Package className="w-10 h-10 text-slate-300 mx-auto mb-2.5" />
+          <h3 className="font-semibold text-slate-800 text-sm mb-1">No orders found</h3>
+          <p className="text-xs text-slate-500 mb-5">You haven't placed any orders yet.</p>
+          <Link to="/products" className="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white rounded-lg text-xs font-medium transition-colors">
+            Browse gadgets
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs">
+        <div className="bg-white rounded-xl border border-slate-200/90 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">

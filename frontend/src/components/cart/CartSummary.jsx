@@ -12,35 +12,35 @@ export default function CartSummary({ onCheckout, isCheckingOut = false }) {
   const hasFreeShipping = subtotal >= 5000;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/80 p-6 shadow-xs sticky top-24">
-      <h3 className="font-bold text-lg text-slate-900 mb-4 pb-3 border-b border-slate-100">
-        Order Summary
+    <div className="bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs sticky top-24">
+      <h3 className="font-semibold text-base text-slate-900 mb-4 pb-3 border-b border-slate-100">
+        Order summary
       </h3>
 
-      <div className="space-y-3 text-sm mb-6">
+      <div className="space-y-2.5 text-xs mb-5">
         <div className="flex justify-between text-slate-600">
           <span>Subtotal</span>
-          <span className="font-semibold text-slate-900">৳{subtotal.toLocaleString('en-BD')}</span>
+          <span className="font-medium text-slate-900 tabular-nums">৳{subtotal.toLocaleString('en-BD')}</span>
         </div>
 
         <div className="flex justify-between text-slate-600">
-          <span>Shipping (Bangladesh)</span>
+          <span>Delivery charge</span>
           {hasFreeShipping ? (
-            <span className="font-semibold text-emerald-600">FREE</span>
+            <span className="font-medium text-emerald-700">Free</span>
           ) : (
-            <span className="font-semibold text-slate-900">৳{shipping}</span>
+            <span className="font-medium text-slate-900 tabular-nums">৳{shipping}</span>
           )}
         </div>
 
         {!hasFreeShipping && subtotal > 0 && (
-          <div className="p-2.5 bg-blue-50 border border-blue-100 rounded-lg text-xs text-blue-700">
-            Add <strong>৳{(5000 - subtotal).toLocaleString('en-BD')}</strong> more for Free Delivery!
+          <div className="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-600 text-[11px]">
+            Add <strong className="text-slate-900">৳{(5000 - subtotal).toLocaleString('en-BD')}</strong> more for free delivery
           </div>
         )}
 
         <div className="border-t border-slate-200 pt-3 flex justify-between items-baseline">
-          <span className="font-bold text-slate-900 text-base">Total</span>
-          <span className="font-black text-2xl text-blue-600">৳{total.toLocaleString('en-BD')}</span>
+          <span className="font-semibold text-slate-900 text-sm">Total</span>
+          <span className="font-bold text-lg text-slate-900 tabular-nums">৳{total.toLocaleString('en-BD')}</span>
         </div>
       </div>
 
@@ -48,24 +48,24 @@ export default function CartSummary({ onCheckout, isCheckingOut = false }) {
         <button
           onClick={onCheckout}
           disabled={items.length === 0 || isCheckingOut}
-          className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-300 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all"
+          className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg font-medium text-xs flex items-center justify-center gap-2 transition-colors"
         >
-          {isCheckingOut ? 'Processing...' : 'Place Order'}
-          {!isCheckingOut && <ArrowRight className="w-4 h-4" />}
+          {isCheckingOut ? 'Processing...' : 'Place order'}
+          {!isCheckingOut && <ArrowRight className="w-3.5 h-3.5" />}
         </button>
       ) : (
         <Link
           to="/checkout"
-          className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all text-center"
+          className="w-full py-2.5 px-4 bg-sky-600 hover:bg-sky-500 text-white rounded-lg font-medium text-xs flex items-center justify-center gap-2 transition-colors text-center"
         >
-          Proceed to Checkout
-          <ArrowRight className="w-4 h-4" />
+          Proceed to checkout
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       )}
 
-      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-xs text-slate-400">
-        <ShieldCheck className="w-4 h-4 text-emerald-500" />
-        <span>Secure checkout with bKash & Cash on Delivery</span>
+      <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-500">
+        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+        <span>bKash & Cash on delivery available</span>
       </div>
     </div>
   );

@@ -5,10 +5,10 @@ export default function PriceDisplay({ amount, compareAmount, className = '' }) 
   const formattedCompare = compareAmount ? `৳${Number(compareAmount).toLocaleString('en-BD')}` : null;
 
   return (
-    <div className={`flex items-baseline gap-2 ${className}`}>
-      <span className="font-bold text-blue-600 dark:text-blue-400">{formatted}</span>
+    <div className={`flex items-baseline gap-1.5 ${className}`}>
+      <span className="font-semibold text-slate-900 tabular-nums">{formatted}</span>
       {formattedCompare && (
-        <span className="text-sm text-slate-400 line-through">{formattedCompare}</span>
+        <span className="text-xs text-slate-400 line-through tabular-nums">{formattedCompare}</span>
       )}
     </div>
   );

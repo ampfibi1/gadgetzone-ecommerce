@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Check } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { useCartStore } from '../../stores/cartStore';
 import PriceDisplay from '../common/PriceDisplay';
 import toast from 'react-hot-toast';
@@ -23,30 +23,30 @@ export default function ProductCard({ product }) {
   const isOutOfStock = product.stock <= 0;
 
   return (
-    <div className="group bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-xl hover:border-cyan-400/60 transition-all duration-300 flex flex-col h-full">
+    <div className="group bg-white rounded-xl border border-slate-200/90 hover:border-slate-300 overflow-hidden shadow-xs hover:shadow-sm transition-colors flex flex-col h-full">
       {/* Product Image Link */}
       <Link to={`/products/${product.slug}`} className="relative block aspect-square overflow-hidden bg-slate-50 p-4">
         <img
           src={primaryImage}
           alt={product.name}
-          className="w-full h-full object-contain object-center group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-contain object-center transition-opacity group-hover:opacity-95"
           loading="lazy"
         />
 
         {/* Category Badge */}
         {product.category && (
-          <span className="absolute top-3 left-3 px-2 py-0.5 text-[10px] font-bold rounded-md bg-slate-900/90 text-white backdrop-blur-xs">
+          <span className="absolute top-3 left-3 px-2 py-0.5 text-[10px] font-medium rounded bg-slate-900/80 text-white">
             {product.category.name}
           </span>
         )}
 
         {/* Stock / Savings Badge */}
         {isOutOfStock ? (
-          <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold rounded-md bg-red-600 text-white shadow-xs">
-            Out of Stock
+          <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-medium rounded bg-rose-600 text-white">
+            Out of stock
           </span>
         ) : product.comparePrice && product.comparePrice > product.price ? (
-          <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-bold rounded-md bg-cyan-600 text-white shadow-xs">
+          <span className="absolute top-3 right-3 px-2 py-0.5 text-[10px] font-medium rounded border border-sky-200 bg-sky-50 text-sky-800">
             Save ৳{(product.comparePrice - product.price).toLocaleString('en-BD')}
           </span>
         ) : null}
@@ -54,8 +54,8 @@ export default function ProductCard({ product }) {
 
       {/* Product Info */}
       <div className="p-4 sm:p-5 flex flex-col flex-1">
-        <Link to={`/products/${product.slug}`} className="block mb-2">
-          <h3 className="font-bold text-slate-900 group-hover:text-cyan-700 transition-colors line-clamp-2 text-xs sm:text-sm leading-snug">
+        <Link to={`/products/${product.slug}`} className="block mb-1.5">
+          <h3 className="font-semibold text-slate-900 group-hover:text-sky-600 transition-colors line-clamp-2 text-xs sm:text-sm leading-snug">
             {product.name}
           </h3>
         </Link>
@@ -74,15 +74,15 @@ export default function ProductCard({ product }) {
           <button
             onClick={handleAddToCart}
             disabled={isOutOfStock}
-            className={`px-3 py-2 rounded-xl font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs ${
+            className={`px-3 py-1.5 rounded-lg font-medium text-xs flex items-center gap-1.5 transition-colors ${
               isOutOfStock
                 ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 active:scale-95 text-white'
+                : 'bg-slate-900 hover:bg-slate-800 text-white'
             }`}
-            title={isOutOfStock ? 'Out of Stock' : 'Add to Cart'}
+            title={isOutOfStock ? 'Out of stock' : 'Add to cart'}
           >
             <ShoppingCart className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Add</span>
+            <span>Add</span>
           </button>
         </div>
       </div>

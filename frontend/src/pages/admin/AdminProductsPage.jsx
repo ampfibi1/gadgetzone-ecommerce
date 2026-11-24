@@ -51,22 +51,22 @@ export default function AdminProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600">
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Admin Dashboard
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Product Catalog Management</h1>
-          <p className="text-sm text-slate-500 mt-1">Add, update, modify pricing and track stock for all gadgets</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Product catalog</h1>
+          <p className="text-xs text-slate-500 mt-0.5">Manage products, pricing, categories, and inventory</p>
         </div>
 
         <Link
           to="/admin/products/new"
-          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-md transition self-start sm:self-auto"
+          className="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors self-start sm:self-auto"
         >
-          <Plus className="w-4 h-4" /> Add New Product
+          <Plus className="w-3.5 h-3.5" /> Add new product
         </Link>
       </div>
 
@@ -74,14 +74,14 @@ export default function AdminProductsPage() {
       <form onSubmit={handleSearchSubmit} className="mb-6 flex gap-2 max-w-md">
         <input
           type="text"
-          placeholder="Search by name or SKU..."
+          placeholder="Search by product name or SKU..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="flex-1 px-4 py-2 rounded-xl border border-slate-200 text-xs focus:ring-1 focus:ring-blue-500 focus:outline-hidden"
+          className="flex-1 px-3 py-2 rounded-lg border border-slate-200 text-xs focus:ring-1 focus:ring-sky-500 focus:outline-hidden"
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-slate-800 text-white font-semibold rounded-xl text-xs"
+          className="px-3.5 py-2 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-lg text-xs transition-colors"
         >
           Search
         </button>
@@ -91,11 +91,11 @@ export default function AdminProductsPage() {
       {loading ? (
         <LoadingSpinner />
       ) : products.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400 text-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400 text-xs">
           No products found.
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs">
+        <div className="bg-white rounded-xl border border-slate-200/90 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">

@@ -56,15 +56,15 @@ export default function AdminOrdersPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600">
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Admin Dashboard
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight">Order Operations & Fulfillment</h1>
-          <p className="text-sm text-slate-500 mt-1">Review guest & customer purchases, update logistics delivery state</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Order management</h1>
+          <p className="text-xs text-slate-500 mt-0.5">Review orders, update fulfillment status, and track payments</p>
         </div>
 
         {/* Status Filter */}
@@ -72,9 +72,9 @@ export default function AdminOrdersPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 focus:outline-hidden"
+            className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-xs font-medium text-slate-700 focus:outline-hidden"
           >
-            <option value="">All Statuses</option>
+            <option value="">All statuses</option>
             {STATUSES.map((s) => (
               <option key={s} value={s}>{s}</option>
             ))}
@@ -86,7 +86,7 @@ export default function AdminOrdersPage() {
       {loading ? (
         <LoadingSpinner />
       ) : orders.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400 text-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400 text-xs">
           No orders found matching criteria.
         </div>
       ) : (

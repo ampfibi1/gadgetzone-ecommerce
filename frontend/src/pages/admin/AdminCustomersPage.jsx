@@ -30,50 +30,50 @@ export default function AdminCustomersPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div className="mb-4">
-        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600">
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Admin Dashboard
+        <Link to="/admin" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to dashboard
         </Link>
       </div>
 
-      <div className="pb-6 border-b border-slate-200 mb-8">
-        <h1 className="text-3xl font-black text-slate-900 tracking-tight">Registered Customers</h1>
-        <p className="text-sm text-slate-500 mt-1">Review accounts and order counts across Bangladesh</p>
+      <div className="pb-5 border-b border-slate-200 mb-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Registered customers</h1>
+        <p className="text-xs text-slate-500 mt-0.5">Review customer accounts and order totals across Bangladesh</p>
       </div>
 
       {loading ? (
         <LoadingSpinner />
       ) : customers.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center text-slate-400 text-sm">
+        <div className="bg-white rounded-xl border border-slate-200 p-10 text-center text-slate-400 text-xs">
           No registered customer accounts found.
         </div>
       ) : (
-        <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-xs">
+        <div className="bg-white rounded-xl border border-slate-200/90 overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 uppercase font-bold border-b border-slate-200">
+              <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-4">Customer Name</th>
-                  <th className="px-6 py-4">Email</th>
-                  <th className="px-6 py-4">Phone</th>
-                  <th className="px-6 py-4">Total Orders</th>
-                  <th className="px-6 py-4">Registered Date</th>
+                  <th className="px-5 py-3">Customer name</th>
+                  <th className="px-5 py-3">Email</th>
+                  <th className="px-5 py-3">Phone</th>
+                  <th className="px-5 py-3">Total orders</th>
+                  <th className="px-5 py-3">Registered date</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-800">
                 {customers.map((c) => (
-                  <tr key={c.id} className="hover:bg-slate-50/50">
-                    <td className="px-6 py-4 font-bold text-slate-900 flex items-center gap-2.5">
-                      <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs shrink-0">
+                  <tr key={c.id} className="hover:bg-slate-50/50 transition-colors">
+                    <td className="px-5 py-3 font-medium text-slate-900 flex items-center gap-2.5">
+                      <div className="w-7 h-7 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center font-semibold text-xs shrink-0">
                         {c.name?.[0]?.toUpperCase()}
                       </div>
                       <span>{c.name}</span>
                     </td>
-                    <td className="px-6 py-4 text-slate-600">{c.email}</td>
-                    <td className="px-6 py-4 font-medium text-slate-700">{c.phone || 'N/A'}</td>
-                    <td className="px-6 py-4 font-black text-blue-600">
+                    <td className="px-5 py-3 text-slate-600">{c.email}</td>
+                    <td className="px-5 py-3 text-slate-700">{c.phone || 'N/A'}</td>
+                    <td className="px-5 py-3 font-semibold text-slate-900 tabular-nums">
                       {c._count?.orders || 0} order(s)
                     </td>
-                    <td className="px-6 py-4 text-slate-400">
+                    <td className="px-5 py-3 text-slate-400">
                       {new Date(c.createdAt).toLocaleDateString('en-BD')}
                     </td>
                   </tr>

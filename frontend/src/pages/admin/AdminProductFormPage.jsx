@@ -144,18 +144,18 @@ export default function AdminProductFormPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="mb-6">
-        <Link to="/admin/products" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600">
-          <ArrowLeft className="w-3.5 h-3.5" /> Back to Products
+      <div className="mb-4">
+        <Link to="/admin/products" className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors">
+          <ArrowLeft className="w-3.5 h-3.5" /> Back to products
         </Link>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-8 sm:p-10 shadow-xs">
-        <h1 className="text-2xl font-black text-slate-900 tracking-tight mb-2">
-          {isEditMode ? 'Edit Gadget' : 'Add New Gadget to Store'}
+      <div className="bg-white rounded-xl border border-slate-200/90 p-6 sm:p-8 shadow-xs">
+        <h1 className="text-xl font-bold text-slate-900 tracking-tight mb-1">
+          {isEditMode ? 'Edit gadget' : 'Add new gadget'}
         </h1>
-        <p className="text-xs text-slate-500 mb-8">
-          Provide product details, pricing in BDT, inventory count and high resolution images
+        <p className="text-xs text-slate-500 mb-6">
+          Provide product details, pricing in BDT, inventory count and official images
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, ShoppingBag, Users, DollarSign, Plus, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Package, ShoppingBag, Users, DollarSign, Plus, ClipboardList, Tag } from 'lucide-react';
 import api from '../../api/axios';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 
@@ -32,151 +32,151 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Top Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-5 border-b border-slate-200 gap-4 mb-6">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 text-[11px] font-bold rounded-md bg-purple-100 text-purple-700">
-              Admin Portal
+            <span className="px-2 py-0.5 text-[10px] font-medium rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Admin portal
             </span>
-            <span className="text-xs text-slate-400">LHQ BANGLADESH Platform Operations</span>
+            <span className="text-xs text-slate-500">LHQ Bangladesh Store Operations</span>
           </div>
-          <h1 className="text-3xl font-black text-slate-900 tracking-tight mt-1">Management Overview</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-1">Management overview</h1>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <Link
             to="/admin/products/new"
-            className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-md transition"
+            className="px-3.5 py-2 bg-sky-600 hover:bg-sky-500 text-white font-medium rounded-lg text-xs flex items-center gap-1.5 transition-colors"
           >
-            <Plus className="w-4 h-4" /> Add New Gadget
+            <Plus className="w-3.5 h-3.5" /> Add new gadget
           </Link>
           <Link
             to="/admin/orders"
-            className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition"
+            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg text-xs transition-colors"
           >
-            Manage Orders
+            Manage orders
           </Link>
         </div>
       </div>
 
       {/* Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
-            <DollarSign className="w-6 h-6" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
+            <DollarSign className="w-5 h-5 text-sky-600" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 font-semibold block">Total Revenue</span>
-            <span className="text-2xl font-black text-slate-900">৳{stats.totalRevenue?.toLocaleString('en-BD')}</span>
+            <span className="text-xs text-slate-500 font-medium block">Total revenue</span>
+            <span className="text-xl font-bold text-slate-900 tabular-nums">৳{stats.totalRevenue?.toLocaleString('en-BD')}</span>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
-            <ShoppingBag className="w-6 h-6" />
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
+            <ShoppingBag className="w-5 h-5 text-sky-600" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 font-semibold block">Total Orders</span>
-            <span className="text-2xl font-black text-slate-900">{stats.totalOrders}</span>
+            <span className="text-xs text-slate-500 font-medium block">Total orders</span>
+            <span className="text-xl font-bold text-slate-900 tabular-nums">{stats.totalOrders}</span>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
-            <Package className="w-6 h-6" />
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
+            <Package className="w-5 h-5 text-sky-600" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 font-semibold block">Live Gadgets</span>
-            <span className="text-2xl font-black text-slate-900">{stats.totalProducts}</span>
+            <span className="text-xs text-slate-500 font-medium block">Live gadgets</span>
+            <span className="text-xl font-bold text-slate-900 tabular-nums">{stats.totalProducts}</span>
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-xs flex items-center gap-4">
-          <div className="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
-            <Users className="w-6 h-6" />
+        <div className="bg-white p-5 rounded-xl border border-slate-200/90 shadow-xs flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-700 flex items-center justify-center">
+            <Users className="w-5 h-5 text-sky-600" />
           </div>
           <div>
-            <span className="text-xs text-slate-400 font-semibold block">Registered Users</span>
-            <span className="text-2xl font-black text-slate-900">{stats.totalCustomers}</span>
+            <span className="text-xs text-slate-500 font-medium block">Registered users</span>
+            <span className="text-xl font-bold text-slate-900 tabular-nums">{stats.totalCustomers}</span>
           </div>
         </div>
       </div>
 
-      {/* Admin Quick Navigation Links */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+      {/* Admin Quick Navigation Links (Icons instead of emoji) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <Link
           to="/admin/products"
-          className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 font-bold text-slate-800 text-xs text-center hover:shadow-xs transition"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
-          📦 Product Catalog
+          <Package className="w-4 h-4 text-sky-600" /> Product catalog
         </Link>
         <Link
           to="/admin/orders"
-          className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 font-bold text-slate-800 text-xs text-center hover:shadow-xs transition"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
-          📋 Customer Orders
+          <ClipboardList className="w-4 h-4 text-sky-600" /> Customer orders
         </Link>
         <Link
           to="/admin/categories"
-          className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 font-bold text-slate-800 text-xs text-center hover:shadow-xs transition"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
-          🏷️ Manage Categories
+          <Tag className="w-4 h-4 text-sky-600" /> Categories
         </Link>
         <Link
           to="/admin/customers"
-          className="p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-400 font-bold text-slate-800 text-xs text-center hover:shadow-xs transition"
+          className="p-3.5 bg-white rounded-lg border border-slate-200 hover:border-slate-300 font-medium text-slate-700 text-xs flex items-center justify-center gap-2 transition-colors shadow-xs"
         >
-          👥 View Customers
+          <Users className="w-4 h-4 text-sky-600" /> Customer accounts
         </Link>
       </div>
 
       {/* Recent Orders Section */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
-        <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-6">
-          <h3 className="font-bold text-lg text-slate-900">Recent Platform Orders</h3>
-          <Link to="/admin/orders" className="text-xs font-bold text-blue-600 hover:text-blue-700">
-            View All Orders
+      <div className="bg-white rounded-xl border border-slate-200/90 p-5 shadow-xs">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+          <h3 className="font-semibold text-sm text-slate-900">Recent platform orders</h3>
+          <Link to="/admin/orders" className="text-xs font-medium text-sky-600 hover:text-sky-700">
+            View all
           </Link>
         </div>
 
         {data?.recentOrders?.length === 0 ? (
-          <p className="text-sm text-slate-400 text-center py-8">No orders in system yet.</p>
+          <p className="text-xs text-slate-400 text-center py-6">No orders in system yet.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-500 uppercase font-bold border-b border-slate-100">
+              <thead className="bg-slate-50 text-slate-500 font-medium border-b border-slate-100">
                 <tr>
-                  <th className="px-4 py-3">Order Number</th>
-                  <th className="px-4 py-3">Customer</th>
-                  <th className="px-4 py-3">Payment</th>
-                  <th className="px-4 py-3">Amount</th>
-                  <th className="px-4 py-3">Status</th>
-                  <th className="px-4 py-3">Placed At</th>
+                  <th className="px-3.5 py-2.5">Order number</th>
+                  <th className="px-3.5 py-2.5">Customer</th>
+                  <th className="px-3.5 py-2.5">Payment</th>
+                  <th className="px-3.5 py-2.5">Amount</th>
+                  <th className="px-3.5 py-2.5">Status</th>
+                  <th className="px-3.5 py-2.5">Date</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {data?.recentOrders?.map((ord) => (
-                  <tr key={ord.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 font-mono font-bold text-blue-600">
+                  <tr key={ord.id} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-3.5 py-2.5 font-mono text-slate-800">
                       {ord.orderNumber}
                     </td>
-                    <td className="px-4 py-3 font-medium">
-                      {ord.user ? ord.user.name : (ord.guestName || 'Guest Visitor')}
+                    <td className="px-3.5 py-2.5 font-medium text-slate-700">
+                      {ord.user ? ord.user.name : (ord.guestName || 'Guest')}
                     </td>
-                    <td className="px-4 py-3 font-semibold">
+                    <td className="px-3.5 py-2.5 text-slate-600">
                       {ord.payment?.method || 'bKash'}
                     </td>
-                    <td className="px-4 py-3 font-bold text-slate-900">
+                    <td className="px-3.5 py-2.5 font-semibold text-slate-900 tabular-nums">
                       ৳{ord.total?.toLocaleString('en-BD')}
                     </td>
-                    <td className="px-4 py-3">
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
+                    <td className="px-3.5 py-2.5">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-700">
                         {ord.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-400">
+                    <td className="px-3.5 py-2.5 text-slate-400">
                       {new Date(ord.createdAt).toLocaleDateString('en-BD')}
                     </td>
                   </tr>

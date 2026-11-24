@@ -17,44 +17,44 @@ export default function CartItem({ item }) {
           <img
             src={primaryImage}
             alt={product.name}
-            className="w-20 h-20 rounded-xl object-cover bg-slate-100 border border-slate-200"
+            className="w-16 h-16 rounded-lg object-contain bg-slate-50 border border-slate-200 p-1"
           />
         </Link>
         <div className="flex-1 min-w-0">
           <Link
             to={`/products/${product.slug}`}
-            className="font-semibold text-slate-900 hover:text-blue-600 transition text-sm line-clamp-1"
+            className="font-medium text-slate-900 hover:text-sky-600 transition-colors text-xs sm:text-sm line-clamp-1"
           >
             {product.name}
           </Link>
           <p className="text-xs text-slate-500 mt-0.5">
-            Unit Price: <span className="font-semibold text-slate-700">৳{product.price.toLocaleString('en-BD')}</span>
+            Unit price: <span className="font-medium text-slate-700 tabular-nums">৳{product.price.toLocaleString('en-BD')}</span>
           </p>
           {product.stock <= 5 && product.stock > 0 && (
-            <p className="text-[11px] text-amber-600 font-medium mt-1">
+            <p className="text-[11px] text-amber-700 font-medium mt-1">
               Only {product.stock} left in stock
             </p>
           )}
         </div>
       </div>
 
-      <div className="flex items-center justify-between w-full sm:w-auto gap-6">
+      <div className="flex items-center justify-between w-full sm:w-auto gap-5">
         {/* Quantity Controls */}
         <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-white">
           <button
             onClick={() => updateQuantity(product.id, quantity - 1)}
-            className="p-1.5 text-slate-500 hover:bg-slate-100 transition"
+            className="p-1.5 text-slate-600 hover:bg-slate-50 transition-colors"
             aria-label="Decrease quantity"
           >
             <Minus className="w-3.5 h-3.5" />
           </button>
-          <span className="w-10 text-center text-sm font-semibold text-slate-800">
+          <span className="w-8 text-center text-xs font-semibold text-slate-800 tabular-nums">
             {quantity}
           </span>
           <button
             onClick={() => updateQuantity(product.id, quantity + 1)}
             disabled={product.stock && quantity >= product.stock}
-            className="p-1.5 text-slate-500 hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed transition"
+            className="p-1.5 text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
             aria-label="Increase quantity"
           >
             <Plus className="w-3.5 h-3.5" />
@@ -62,8 +62,8 @@ export default function CartItem({ item }) {
         </div>
 
         {/* Total Price */}
-        <div className="text-right min-w-[90px]">
-          <span className="font-bold text-slate-900 text-sm">
+        <div className="text-right min-w-[80px]">
+          <span className="font-semibold text-slate-900 text-xs sm:text-sm tabular-nums">
             ৳{lineTotal.toLocaleString('en-BD')}
           </span>
         </div>
@@ -71,8 +71,8 @@ export default function CartItem({ item }) {
         {/* Remove Button */}
         <button
           onClick={() => removeItem(product.id)}
-          className="p-2 text-slate-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition"
-          title="Remove Item"
+          className="p-1.5 text-slate-400 hover:text-rose-600 rounded-md hover:bg-rose-50 transition-colors"
+          title="Remove item"
         >
           <Trash2 className="w-4 h-4" />
         </button>

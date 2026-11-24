@@ -29,38 +29,38 @@ export default function Header() {
   };
 
   const categoryLinks = [
-    { name: 'All Gadgets', path: '/products' },
+    { name: 'All gadgets', path: '/products' },
     { name: 'Smartphones', path: '/products?category=smartphones' },
     { name: 'Earbuds', path: '/products?category=earbuds' },
     { name: 'Smartwatches', path: '/products?category=smartwatches' },
-    { name: 'Power Banks', path: '/products?category=power-banks' },
+    { name: 'Power banks', path: '/products?category=power-banks' },
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-slate-950 text-white shadow-xl border-b border-slate-800/80">
-      {/* Top Notification & Contact Bar - Inspired by Gadget & Gear */}
-      <div className="bg-slate-900 border-b border-slate-800 text-[11px] py-1.5 px-4 text-slate-300">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-slate-300">
-            <a href="tel:01348178750" className="flex items-center gap-1.5 hover:text-cyan-400 transition font-medium">
-              <Phone className="w-3 h-3 text-cyan-400" />
-              <span>Hotline: 01348178750</span>
+    <header className="sticky top-0 z-40 bg-slate-950 text-white border-b border-slate-800">
+      {/* Top Utility & Contact Bar */}
+      <div className="bg-slate-900/90 border-b border-slate-800 text-xs py-2 px-4 text-slate-300">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs">
+            <a href="tel:01348178750" className="inline-flex items-center gap-1.5 text-slate-300 hover:text-sky-400 transition-colors font-medium">
+              <Phone className="w-3.5 h-3.5 text-sky-400" />
+              <span>01348178750</span>
             </a>
             <span className="hidden md:inline text-slate-700">|</span>
-            <div className="hidden md:flex items-center gap-1.5 text-slate-300">
-              <MapPin className="w-3 h-3 text-cyan-400 shrink-0" />
+            <div className="hidden md:flex items-center gap-1.5 text-slate-400">
+              <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
               <span>Konapara Shopping Complex, Dhaka, Ground Floor</span>
             </div>
             <span className="hidden lg:inline text-slate-700">|</span>
-            <a href="mailto:lhqbangladesh@gmail.com" className="hidden lg:flex items-center gap-1.5 hover:text-cyan-400 transition">
-              <Mail className="w-3 h-3 text-cyan-400" />
+            <a href="mailto:lhqbangladesh@gmail.com" className="hidden lg:flex items-center gap-1.5 text-slate-400 hover:text-sky-400 transition-colors">
+              <Mail className="w-3.5 h-3.5 text-slate-500" />
               <span>lhqbangladesh@gmail.com</span>
             </a>
           </div>
 
-          <div className="hidden sm:flex items-center gap-3 text-xs font-semibold text-cyan-300">
-            <span className="inline-flex items-center gap-1 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded text-[10px]">
-              🇧🇩 Free Delivery on orders over ৳5,000 | bKash & COD
+          <div className="hidden sm:flex items-center gap-2 text-xs text-slate-300">
+            <span className="inline-flex items-center gap-1.5 bg-slate-800/80 border border-slate-700/60 px-2.5 py-0.5 rounded text-[11px] text-slate-300">
+              Free delivery over ৳5,000 • bKash & Cash on delivery
             </span>
           </div>
         </div>
@@ -68,72 +68,68 @@ export default function Header() {
 
       {/* Main Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+        <div className="flex items-center justify-between h-20 gap-6">
           {/* Logo & Brand Name */}
-          <Link to="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative">
-              <img
-                src="/logo.jpg"
-                alt="LHQ BANGLADESH"
-                className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover ring-2 ring-cyan-500/30 group-hover:ring-cyan-400 transition shadow-lg"
-              />
-            </div>
+          <Link to="/" className="flex items-center gap-3 shrink-0">
+            <img
+              src="/logo.jpg"
+              alt="LHQ Bangladesh"
+              className="w-11 h-11 rounded-lg object-cover border border-slate-700"
+            />
             <div className="flex flex-col">
-              <span className="font-black text-lg sm:text-2xl tracking-tight text-white flex items-center leading-none">
-                LHQ <span className="text-cyan-400 ml-1.5 font-black">BANGLADESH</span>
+              <span className="font-bold text-lg sm:text-xl tracking-tight text-white leading-none">
+                LHQ <span className="text-sky-400">Bangladesh</span>
               </span>
-              <span className="text-[10px] text-slate-400 font-semibold tracking-widest uppercase mt-1">
-                Authentic Gadget Destination
+              <span className="text-[11px] text-slate-400 font-medium mt-1">
+                Authentic retail & online store
               </span>
             </div>
           </Link>
 
-          {/* Search Bar - Gadget & Gear Style with wide rounded input */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-lg mx-6">
+          {/* Search Bar */}
+          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-4">
             <div className="relative w-full">
               <input
                 type="text"
-                placeholder="Search iPhone, Samsung, AirPods, Smartwatch, Anker..."
+                placeholder="Search smartphones, earbuds, smartwatches..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900/90 text-white placeholder-slate-400 text-xs sm:text-sm rounded-full pl-5 pr-11 py-2.5 border border-slate-700/80 focus:outline-hidden focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/20 transition shadow-inner"
+                className="w-full bg-slate-900 text-white placeholder-slate-400 text-sm rounded-lg pl-3.5 pr-10 py-2 border border-slate-700 focus:outline-hidden focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-colors"
               />
               <button
                 type="submit"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition shadow-md"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded flex items-center justify-center transition-colors"
                 aria-label="Search"
               >
-                <Search className="w-3.5 h-3.5" />
+                <Search className="w-4 h-4" />
               </button>
             </div>
           </form>
 
           {/* User & Cart Actions */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Quick Hotline Button on Tablet/Desktop */}
+          <div className="flex items-center gap-3">
+            {/* Quick Hotline Tablet/Desktop */}
             <a
               href="tel:01348178750"
-              className="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-white transition text-xs"
+              className="hidden xl:flex items-center gap-2.5 px-3 py-1.5 rounded-lg border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-colors text-xs"
             >
-              <div className="w-7 h-7 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
-                <Phone className="w-3.5 h-3.5" />
-              </div>
+              <Phone className="w-3.5 h-3.5 text-sky-400" />
               <div className="text-left">
-                <span className="text-[10px] text-slate-400 block font-medium">Quick Support</span>
-                <span className="font-bold text-white text-xs">01348178750</span>
+                <span className="text-[10px] text-slate-400 block">Support hotline</span>
+                <span className="font-semibold text-white">01348178750</span>
               </div>
             </a>
 
             {/* Shopping Cart Button */}
             <Link
               to="/cart"
-              className="relative p-2.5 text-slate-200 hover:text-white rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 transition flex items-center gap-2"
+              className="relative p-2.5 text-slate-200 hover:text-white rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition-colors flex items-center gap-2"
               aria-label="Shopping Cart"
             >
-              <ShoppingCart className="w-5 h-5 text-cyan-400" />
-              <span className="hidden md:inline text-xs font-bold text-slate-200">Cart</span>
+              <ShoppingCart className="w-5 h-5 text-sky-400" />
+              <span className="hidden md:inline text-xs font-semibold text-slate-200">Cart</span>
               {itemCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-in zoom-in">
+                <span className="absolute -top-1.5 -right-1.5 bg-sky-600 text-white text-[11px] font-semibold h-5 min-w-5 px-1 rounded-full flex items-center justify-center tabular-nums">
                   {itemCount}
                 </span>
               )}
@@ -144,24 +140,24 @@ export default function Header() {
               <div className="relative">
                 <button
                   onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                  className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 text-slate-200 transition"
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 transition-colors"
                 >
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-xs font-bold text-white shadow-xs">
+                  <div className="w-6 h-6 rounded bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-semibold text-slate-200">
                     {user?.name ? user.name[0].toUpperCase() : 'U'}
                   </div>
-                  <span className="hidden sm:inline-block text-xs font-semibold truncate max-w-[100px]">
+                  <span className="hidden sm:inline-block text-xs font-medium truncate max-w-[120px]">
                     {user?.name}
                   </span>
-                  <ChevronDown className="w-3 h-3 text-slate-400 hidden sm:inline" />
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-400 hidden sm:inline" />
                 </button>
 
                 {/* Dropdown Menu */}
                 {userDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-slate-900 text-slate-100 rounded-2xl shadow-2xl border border-slate-800 py-2 z-50 animate-in fade-in slide-in-from-top-2">
-                    <div className="px-4 py-2.5 border-b border-slate-800">
-                      <p className="text-xs font-bold text-white truncate">{user?.name}</p>
+                  <div className="absolute right-0 mt-2 w-56 bg-slate-900 text-slate-200 rounded-lg shadow-xl border border-slate-800 py-1.5 z-50">
+                    <div className="px-3 py-2 border-b border-slate-800">
+                      <p className="text-xs font-semibold text-white truncate">{user?.name}</p>
                       <p className="text-[11px] text-slate-400 truncate">{user?.email}</p>
-                      <span className="inline-block mt-1.5 px-2 py-0.5 text-[10px] font-bold rounded-full bg-cyan-950 text-cyan-400 border border-cyan-800/60">
+                      <span className="inline-block mt-1 px-1.5 py-0.5 text-[10px] font-medium rounded bg-slate-800 text-sky-400 border border-slate-700">
                         {user?.role}
                       </span>
                     </div>
@@ -170,35 +166,35 @@ export default function Header() {
                       <Link
                         to="/admin"
                         onClick={() => setUserDropdownOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-xs text-purple-400 hover:bg-slate-800/80 font-bold transition"
+                        className="flex items-center gap-2 px-3 py-2 text-xs text-sky-300 hover:bg-slate-800 font-medium transition-colors"
                       >
-                        <Shield className="w-4 h-4" /> Admin Dashboard
+                        <Shield className="w-4 h-4 text-sky-400" /> Admin dashboard
                       </Link>
                     )}
 
                     <Link
                       to="/account"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                      className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
                     >
-                      <User className="w-4 h-4 text-cyan-400" /> Account Dashboard
+                      <User className="w-4 h-4 text-slate-400" /> Account details
                     </Link>
 
                     <Link
                       to="/account/orders"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                      className="flex items-center gap-2 px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition-colors"
                     >
-                      <Package className="w-4 h-4 text-cyan-400" /> My Orders
+                      <Package className="w-4 h-4 text-slate-400" /> Order history
                     </Link>
 
                     <div className="border-t border-slate-800 my-1" />
 
                     <button
                       onClick={handleLogout}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-xs text-red-400 hover:bg-red-950/30 text-left transition"
+                      className="w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 hover:bg-red-950/20 text-left transition-colors"
                     >
-                      <LogOut className="w-4 h-4" /> Sign Out
+                      <LogOut className="w-4 h-4" /> Sign out
                     </button>
                   </div>
                 )}
@@ -207,13 +203,13 @@ export default function Header() {
               <div className="flex items-center gap-2">
                 <Link
                   to="/login"
-                  className="px-3 py-1.5 text-xs font-semibold text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition"
+                  className="px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
                 >
-                  Sign In
+                  Sign in
                 </Link>
                 <Link
                   to="/register"
-                  className="hidden sm:inline-flex px-3.5 py-1.5 text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 hover:brightness-110 text-white rounded-xl shadow-md transition"
+                  className="hidden sm:inline-flex px-3.5 py-1.5 text-xs font-medium bg-sky-600 hover:bg-sky-500 text-white rounded-lg transition-colors"
                 >
                   Register
                 </Link>
@@ -223,28 +219,28 @@ export default function Header() {
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition"
-              aria-label="Open Mobile Menu"
+              className="lg:hidden p-2 text-slate-300 hover:text-white rounded-lg hover:bg-slate-900 transition-colors"
+              aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6 text-cyan-400" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 text-sky-400" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Sub-Navigation Categories Bar - Inspired by Gadget & Gear */}
-      <nav className="hidden lg:block bg-slate-900/90 border-t border-slate-800/80">
+      {/* Sub-Navigation Categories Bar */}
+      <nav className="hidden lg:block bg-slate-900/60 border-t border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-1 text-xs font-bold">
+          <div className="flex items-center gap-1 text-xs font-medium">
             {categoryLinks.map((item) => {
               const isActive = location.pathname + location.search === item.path;
               return (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className={`px-4 py-3 transition-colors flex items-center gap-1.5 border-b-2 ${
+                  className={`px-3.5 py-2.5 transition-colors border-b-2 ${
                     isActive
-                      ? 'border-cyan-400 text-cyan-300 bg-slate-800/40'
+                      ? 'border-sky-400 text-sky-300 font-semibold'
                       : 'border-transparent text-slate-300 hover:text-white hover:border-slate-600'
                   }`}
                 >
@@ -254,9 +250,9 @@ export default function Header() {
             })}
           </div>
 
-          <div className="flex items-center gap-4 text-xs text-slate-400 font-medium">
+          <div className="flex items-center gap-4 text-xs text-slate-400">
             <span className="flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-cyan-400" /> Konapara Shopping Complex, Dhaka
+              <MapPin className="w-3.5 h-3.5 text-sky-400" /> Konapara Shopping Complex, Dhaka
             </span>
           </div>
         </div>
@@ -264,7 +260,7 @@ export default function Header() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden py-4 px-4 border-t border-slate-800 bg-slate-950 space-y-4 animate-in slide-in-from-top">
+        <div className="lg:hidden py-4 px-4 border-t border-slate-800 bg-slate-950 space-y-4">
           {/* Mobile Search */}
           <form onSubmit={handleSearch}>
             <div className="relative">
@@ -273,26 +269,26 @@ export default function Header() {
                 placeholder="Search gadgets..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 text-white placeholder-slate-400 text-xs rounded-xl pl-4 pr-10 py-2.5 border border-slate-800 focus:outline-hidden focus:border-cyan-400"
+                className="w-full bg-slate-900 text-white placeholder-slate-400 text-xs rounded-lg pl-3 pr-9 py-2 border border-slate-800 focus:outline-hidden focus:border-sky-500"
               />
               <button
                 type="submit"
-                className="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-cyan-400"
+                className="absolute right-1 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center text-slate-400"
               >
                 <Search className="w-4 h-4" />
               </button>
             </div>
           </form>
 
-          {/* Mobile Category Links (No Track Order) */}
+          {/* Mobile Category Links */}
           <div className="space-y-1">
-            <p className="text-[10px] uppercase font-bold text-slate-500 tracking-wider px-3 mb-1">Navigation</p>
+            <p className="text-[11px] font-semibold text-slate-500 px-3 mb-1">Categories</p>
             {categoryLinks.map((cat) => (
               <Link
                 key={cat.name}
                 to={cat.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-900 rounded-lg"
+                className="block px-3 py-2 text-xs font-medium text-slate-200 hover:bg-slate-900 rounded-lg"
               >
                 {cat.name}
               </Link>
@@ -302,20 +298,20 @@ export default function Header() {
               <Link
                 to="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 text-xs font-bold text-purple-400 bg-purple-950/30 rounded-lg mt-2"
+                className="block px-3 py-2 text-xs font-medium text-sky-300 bg-slate-900 border border-slate-800 rounded-lg mt-2"
               >
-                <Shield className="w-3.5 h-3.5 inline mr-2" /> Admin Dashboard
+                <Shield className="w-3.5 h-3.5 inline mr-2 text-sky-400" /> Admin dashboard
               </Link>
             )}
           </div>
 
           {/* Mobile Store Info */}
           <div className="pt-3 border-t border-slate-900 text-xs text-slate-400 space-y-1.5 px-3">
-            <p className="flex items-center gap-2 text-slate-300 font-semibold">
-              <Phone className="w-3.5 h-3.5 text-cyan-400" /> 01348178750
+            <p className="flex items-center gap-2 text-slate-300 font-medium">
+              <Phone className="w-3.5 h-3.5 text-sky-400" /> 01348178750
             </p>
             <p className="flex items-start gap-2 text-slate-400 text-[11px]">
-              <MapPin className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+              <MapPin className="w-3.5 h-3.5 text-sky-400 shrink-0 mt-0.5" />
               Konapara Shopping Complex, Dhaka, Ground Floor
             </p>
           </div>

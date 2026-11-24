@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ShoppingCart, ShieldCheck, Truck, RotateCcw, Check, Plus, Minus, ArrowLeft } from 'lucide-react';
+import { ShoppingCart, ShieldCheck, Truck, RotateCcw, Plus, Minus, MapPin, Phone } from 'lucide-react';
 import api from '../api/axios';
 import { useCartStore } from '../stores/cartStore';
 import PriceDisplay from '../components/common/PriceDisplay';
@@ -51,45 +51,45 @@ export default function ProductDetailPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mb-6">
-        <Link to="/" className="hover:text-blue-600 transition">Home</Link>
+      <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
+        <Link to="/" className="hover:text-slate-800 transition-colors">Home</Link>
         <span>/</span>
-        <Link to="/products" className="hover:text-blue-600 transition">Products</Link>
+        <Link to="/products" className="hover:text-slate-800 transition-colors">Products</Link>
         <span>/</span>
         {product.category && (
           <>
-            <Link to={`/products?category=${product.category.slug}`} className="hover:text-blue-600 transition">
+            <Link to={`/products?category=${product.category.slug}`} className="hover:text-slate-800 transition-colors">
               {product.category.name}
             </Link>
             <span>/</span>
           </>
         )}
-        <span className="text-slate-800 truncate">{product.name}</span>
+        <span className="text-slate-800 truncate font-medium">{product.name}</span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/80 shadow-xs">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 bg-white p-6 sm:p-8 rounded-xl border border-slate-200/90 shadow-xs">
         {/* Gallery */}
         <div className="space-y-4">
-          <div className="aspect-square rounded-2xl overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center">
+          <div className="aspect-square rounded-xl overflow-hidden bg-slate-50 border border-slate-200 p-6 flex items-center justify-center">
             <img
               src={selectedImage}
               alt={product.name}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-contain object-center"
             />
           </div>
 
           {/* Thumbnails */}
           {product.images && product.images.length > 1 && (
-            <div className="flex items-center gap-3 overflow-x-auto pb-2">
+            <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
               {product.images.map((img) => (
                 <button
                   key={img.id}
                   onClick={() => setSelectedImage(img.url)}
-                  className={`w-16 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition ${
-                    selectedImage === img.url ? 'border-blue-600' : 'border-slate-200 opacity-70'
+                  className={`w-14 h-14 rounded-lg overflow-hidden border p-1 bg-slate-50 shrink-0 transition-colors ${
+                    selectedImage === img.url ? 'border-sky-600' : 'border-slate-200 hover:border-slate-300'
                   }`}
                 >
-                  <img src={img.url} alt="thumbnail" className="w-full h-full object-cover" />
+                  <img src={img.url} alt="thumbnail" className="w-full h-full object-contain" />
                 </button>
               ))}
             </div>
@@ -100,12 +100,12 @@ export default function ProductDetailPage() {
         <div className="flex flex-col justify-between">
           <div>
             {product.category && (
-              <span className="inline-block px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-lg mb-3">
+              <span className="inline-block px-2 py-0.5 bg-slate-100 text-slate-700 text-xs font-medium rounded mb-3">
                 {product.category.name}
               </span>
             )}
 
-            <h1 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mb-2">
               {product.name}
             </h1>
 
@@ -116,55 +116,55 @@ export default function ProductDetailPage() {
             )}
 
             {/* Price Box */}
-            <div className="p-4 bg-slate-50 rounded-2xl mb-6">
+            <div className="p-4 bg-slate-50 border border-slate-200/80 rounded-xl mb-5">
               <PriceDisplay
                 amount={product.price}
                 compareAmount={product.comparePrice}
-                className="text-2xl font-black"
+                className="text-xl font-bold"
               />
               <p className="text-xs text-slate-500 mt-1">
-                Inclusive of all taxes. Free shipping on orders over ৳5,000.
+                Inclusive of all taxes. Free delivery on orders over ৳5,000.
               </p>
             </div>
 
             {/* Stock status */}
-            <div className="flex items-center gap-2 mb-6">
-              <span className={`w-2.5 h-2.5 rounded-full ${isOutOfStock ? 'bg-red-500' : 'bg-emerald-500'}`} />
-              <span className={`text-xs font-bold ${isOutOfStock ? 'text-red-600' : 'text-emerald-700'}`}>
-                {isOutOfStock ? 'Out of Stock' : `In Stock (${product.stock} units available)`}
+            <div className="flex items-center gap-2 mb-5">
+              <span className={`w-2 h-2 rounded-full ${isOutOfStock ? 'bg-rose-500' : 'bg-emerald-500'}`} />
+              <span className={`text-xs font-medium ${isOutOfStock ? 'text-rose-600' : 'text-emerald-700'}`}>
+                {isOutOfStock ? 'Out of stock' : `In stock (${product.stock} units available)`}
               </span>
             </div>
 
             {/* Description */}
-            <div className="mb-8">
-              <h3 className="font-bold text-slate-900 text-sm mb-2">Description & Highlights</h3>
-              <p className="text-sm text-slate-600 leading-relaxed whitespace-pre-line">
+            <div className="mb-6">
+              <h3 className="font-semibold text-slate-900 text-xs mb-1.5">Description</h3>
+              <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
                 {product.description}
               </p>
             </div>
           </div>
 
           {/* Action Row */}
-          <div className="space-y-4 pt-6 border-t border-slate-100">
-            <div className="flex items-center gap-4">
+          <div className="space-y-4 pt-5 border-t border-slate-100">
+            <div className="flex items-center gap-3">
               {/* Quantity */}
-              <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-white">
+              <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden bg-white">
                 <button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   disabled={quantity <= 1 || isOutOfStock}
-                  className="p-3 text-slate-600 hover:bg-slate-100 disabled:opacity-40 transition"
+                  className="p-2.5 text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-colors"
                 >
-                  <Minus className="w-4 h-4" />
+                  <Minus className="w-3.5 h-3.5" />
                 </button>
-                <span className="w-12 text-center text-sm font-bold text-slate-900">
+                <span className="w-10 text-center text-xs font-semibold text-slate-900 tabular-nums">
                   {quantity}
                 </span>
                 <button
                   onClick={() => setQuantity(Math.min(product.stock || 99, quantity + 1))}
                   disabled={quantity >= product.stock || isOutOfStock}
-                  className="p-3 text-slate-600 hover:bg-slate-100 disabled:opacity-40 transition"
+                  className="p-2.5 text-slate-600 hover:bg-slate-50 disabled:opacity-40 transition-colors"
                 >
-                  <Plus className="w-4 h-4" />
+                  <Plus className="w-3.5 h-3.5" />
                 </button>
               </div>
 
@@ -172,31 +172,37 @@ export default function ProductDetailPage() {
               <button
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="flex-1 py-3.5 px-6 bg-gradient-to-r from-cyan-600 to-blue-600 hover:brightness-110 active:scale-98 disabled:bg-slate-300 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg shadow-cyan-600/20 transition-all text-sm"
+                className="flex-1 py-2.5 px-5 bg-sky-600 hover:bg-sky-500 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-colors text-xs sm:text-sm"
               >
-                <ShoppingCart className="w-5 h-5" />
-                {isOutOfStock ? 'Currently Unavailable' : 'Add to Cart'}
+                <ShoppingCart className="w-4 h-4" />
+                {isOutOfStock ? 'Currently out of stock' : 'Add to cart'}
               </button>
             </div>
 
             {/* Guarantees & Store Info */}
-            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-slate-100 text-center text-[11px] text-slate-500">
+            <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center text-[11px] text-slate-500">
               <div className="flex flex-col items-center gap-1">
-                <Truck className="w-4 h-4 text-cyan-600" />
-                <span>Fast BD Delivery</span>
+                <Truck className="w-4 h-4 text-sky-600" />
+                <span>Fast BD delivery</span>
               </div>
               <div className="flex flex-col items-center gap-1">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                <span>Genuine Warranty</span>
+                <span>Official warranty</span>
               </div>
               <div className="flex flex-col items-center gap-1">
-                <RotateCcw className="w-4 h-4 text-amber-600" />
-                <span>7-Day Return</span>
+                <RotateCcw className="w-4 h-4 text-slate-500" />
+                <span>Replacement policy</span>
               </div>
             </div>
 
-            <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 text-[11px] text-slate-600 text-center">
-              📍 <strong>LHQ BANGLADESH Store:</strong> Konapara Shopping Complex, Dhaka, Ground Floor | 📞 <strong>01348178750</strong>
+            <div className="p-3 bg-slate-50 rounded-lg border border-slate-200/80 text-[11px] text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-1 text-center sm:text-left">
+              <span className="flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+                Konapara Shopping Complex, Dhaka, Ground Floor
+              </span>
+              <a href="tel:01348178750" className="flex items-center gap-1 text-sky-600 font-medium hover:underline">
+                <Phone className="w-3 h-3" /> 01348178750
+              </a>
             </div>
           </div>
         </div>
