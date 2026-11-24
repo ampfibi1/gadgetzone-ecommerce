@@ -342,6 +342,15 @@ The repository includes a ready-to-deploy `render.yaml` blueprint.
   - Rewrite Rule: `/*` → `/index.html`
   - Environment Variable: `VITE_API_URL=https://<your-backend-service>.onrender.com/api`.
 
+### Keeping the Free API Awake (Keep-Alive)
+Render free web services spin down after 15 minutes without inbound traffic, and only external requests count (an in-process self-ping does not). The repository includes a free GitHub Actions workflow (`.github/workflows/keep-alive.yml`) that calls `/api/health` every 5 minutes to keep `gadgetzone-api` awake.
+
+- **Change the target URL:** In GitHub, go to **Settings** → **Secrets and variables** → **Actions** → **Variables**, then create `RENDER_HEALTH_URL`. When unset, the workflow falls back to `https://gadgetzone-api.onrender.com/api/health`.
+- **Test manually:** Open the **Actions** tab → **Keep Render API awake** → **Run workflow**. The first run after a sleep may take ~45–60 seconds while Render cold-starts.
+- **Free-plan caveats:** Scheduled runs can be delayed under load; the workflow is free for public repositories (private repositories consume included Actions minutes); and GitHub may disable scheduled workflows after long repository inactivity, which can be re-enabled from the **Actions** tab.
+- **Free instance hours:** Keeping one service awake around the clock uses nearly all of Render's 750 monthly free instance hours, so avoid keeping multiple free web services awake on the same workspace.
+- **Faster or private alternative:** For a 1-minute cadence or private repositories, a free external monitor such as [cron-job.org](https://cron-job.org) or [UptimeRobot](https://uptimerobot.com) can call the same URL instead.
+
 ---
 
 ## 13. Default Demo Accounts
